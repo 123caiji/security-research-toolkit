@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命令执行攻击检测逻辑分析</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 26px; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        .icon-red { background: #ff4d4f; }
+        .icon-orange { background: #fa8c16; }
+        .icon-blue { background: #1890ff; }
+        .icon-green { background: #52c41a; }
+        .icon-purple { background: #722ed1; }
+        .icon-cyan { background: #13c2c2; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        th {
+            background: #fafafa;
+            font-weight: 600;
+            color: #555;
+        }
+        tr:hover { background: #f9f9f9; }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .tag-danger {
+            background: #fff1f0;
+            color: #ff4d4f;
+            border: 1px solid #ffa39e;
+        }
+        .tag-warning {
+            background: #fffbe6;
+            color: #faad14;
+            border: 1px solid #ffe58f;
+        }
+        .tag-info {
+            background: #e6f7ff;
+            color: #1890ff;
+            border: 1px solid #91d5ff;
+        }
+        .tag-success {
+            background: #f6ffed;
+            color: #52c41a;
+            border: 1px solid #b7eb8f;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .code-highlight {
+            background: rgba(255, 77, 79, 0.3);
+            border-left: 3px solid #ff4d4f;
+            padding: 2px 6px;
+            margin: 2px 0;
+            display: block;
+        }
+        .code-line {
+            display: block;
+            padding: 1px 6px;
+        }
+        .line-num {
+            color: #858585;
+            display: inline-block;
+            width: 30px;
+            text-align: right;
+            margin-right: 10px;
+            user-select: none;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 140px;
+            padding: 20px 15px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .flow-step.step1 { background: #fff1f0; border: 2px solid #ffa39e; }
+        .flow-step.step2 { background: #fff7e6; border: 2px solid #ffd591; }
+        .flow-step.step3 { background: #e6f7ff; border: 2px solid #91d5ff; }
+        .flow-step.step4 { background: #f6ffed; border: 2px solid #b7eb8f; }
+        .flow-step .step-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff4d4f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+        .flow-step.step2 .step-num { background: #fa8c16; }
+        .flow-step.step3 .step-num { background: #1890ff; }
+        .flow-step.step4 .step-num { background: #52c41a; }
+        .flow-step .step-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .flow-step .step-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #999;
+        }
+
+        .detection-list {
+            list-style: none;
+            padding: 0;
+        }
+        .detection-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #ff4d4f;
+            background: #fff1f0;
+        }
+        .detection-item .item-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #ff4d4f;
+            margin-bottom: 5px;
+        }
+        .detection-item .item-evidence {
+            font-size: 13px;
+            color: #666;
+            font-family: Consolas, monospace;
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .cmd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .cmd-item {
+            padding: 10px;
+            background: #fff1f0;
+            border: 1px solid #ffa39e;
+            border-radius: 6px;
+            text-align: center;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff4d4f;
+        }
+        .cmd-item .cmd-type {
+            display: block;
+            font-size: 11px;
+            font-weight: normal;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); justify-content: center; }
+        }
+
+        .verdict-box {
+            background: linear-gradient(135deg, #fff1f0 0%, #fff7e6 100%);
+            border: 2px solid #ffa39e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .verdict-box .verdict-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff4d4f;
+            margin-bottom: 8px;
+        }
+        .verdict-box .verdict-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .summary-table th:first-child {
+            width: 35%;
+        }
+
+        .highlight-box {
+            background: #fffbe6;
+            border: 1px solid #ffe58f;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .highlight-box .box-title {
+            font-weight: bold;
+            color: #faad14;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .highlight-box p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .rule-example {
+            background: #f9f0ff;
+            border: 1px solid #d3adf7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .rule-example .rule-title {
+            font-weight: bold;
+            color: #722ed1;
+            margin-bottom: 10px;
+        }
+        .rule-example code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 标题 -->
+        <div class="header">
+            <h1>🔍 "命令执行攻击"检测逻辑分析</h1>
+            <p>安全设备如何从HTTP请求中判断出"命令执行攻击"？</p>
+            <p style="margin-top: 5px; font-size: 13px;">告警：命令执行攻击：HTTP请求中存在命令执行-未知</p>
+        </div>
+
+        <!-- 结论 -->
+        <div class="verdict-box">
+            <div class="verdict-text">⚠️ 命中规则，触发告警</div>
+            <div class="verdict-desc">
+                安全设备通过特征匹配识别出：HTTP请求体中包含 bash 脚本 + 多条系统命令 → 命中"命令执行"检测规则 → 触发告警
+            </div>
+        </div>
+
+        <!-- 检测流程 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-red">📊</span>
+                安全设备检测流程
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-step step1">
+                    <div class="step-num">1</div>
+                    <div class="step-title">捕获HTTP请求</div>
+                    <div class="step-desc">设备镜像/代理捕获流量</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step step2">
+                    <div class="step-num">2</div>
+                    <div class="step-title">解析请求内容</div>
+                    <div class="step-desc">提取URL、Header、Body</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step step3">
+                    <div class="step-num">3</div>
+                    <div class="step-title">特征匹配</div>
+                    <div class="step-desc">与攻击规则库比对</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step step4">
+                    <div class="step-num">4</div>
+                    <div class="step-title">触发告警</div>
+                    <div class="step-desc">命中规则，生成告警</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6大检测特征 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-red">🚨</span>
+                六大命中特征（为什么判定为命令执行）
+            </div>
+
+            <ul class="detection-list">
+                <li class="detection-item">
+                    <div class="item-title">特征1：Shell脚本标识</div>
+                    <div>请求体第一行就是 <code>#!/bin/bash</code>，这是Unix/Linux Shell脚本的标准开头，告诉系统这是一个可执行的bash脚本。</div>
+                    <div class="item-evidence">#!/bin/bash</div>
+                </li>
+
+                <li class="detection-item">
+                    <div class="item-title">特征2：文件操作命令</div>
+                    <div>脚本中包含大量文件系统操作命令，这些都是"命令执行"的典型关键字特征。</div>
+                    <div class="cmd-grid">
+                        <div class="cmd-item">cp<span class="cmd-type">拷贝文件</span></div>
+                        <div class="cmd-item">mv<span class="cmd-type">移动文件</span></div>
+                        <div class="cmd-item">mkdir<span class="cmd-type">创建目录</span></div>
+                        <div class="cmd-item">chmod<span class="cmd-type">修改权限</span></div>
+                        <div class="cmd-item">chown<span class="cmd-type">修改属主</span></div>
+                        <div class="cmd-item">rm<span class="cmd-type">删除文件</span></div>
+                        <div class="cmd-item">ls<span class="cmd-type">列出目录</span></div>
+                        <div class="cmd-item">cat<span class="cmd-type">查看文件</span></div>
+                        <div class="cmd-item">tee<span class="cmd-type">写入文件</span></div>
+                    </div>
+                </li>
+
+                <li class="detection-item">
+                    <div class="item-title">特征3：系统信息获取命令</div>
+                    <div>包含获取系统信息的命令，常用于攻击后的信息收集阶段。</div>
+                    <div class="cmd-grid">
+                        <div class="cmd-item">hostname<span class="cmd-type">获取主机名</span></div>
+                        <div class="cmd-item">date<span class="cmd-type">获取系统时间</span></div>
+                        <div class="cmd-item">whoami<span class="cmd-type">获取当前用户</span></div>
+                        <div class="cmd-item">id<span class="cmd-type">获取用户ID</span></div>
+                    </div>
+                </li>
+
+                <li class="detection-item">
+                    <div class="item-title">特征4：脚本控制结构</div>
+                    <div>包含完整的bash编程结构，说明这是一个完整的可执行脚本，不是普通文本。</div>
+                    <div class="cmd-grid">
+                        <div class="cmd-item">function<span class="cmd-type">函数定义</span></div>
+                        <div class="cmd-item">if/then<span class="cmd-type">条件判断</span></div>
+                        <div class="cmd-item">case<span class="cmd-type">分支选择</span></div>
+                        <div class="cmd-item">exit<span class="cmd-type">退出码</span></div>
+                        <div class="cmd-item">$1 $2<span class="cmd-type">参数传递</span></div>
+                        <div class="cmd-item">$()<span class="cmd-type">命令替换</span></div>
+                    </div>
+                </li>
+
+                <li class="detection-item">
+                    <div class="item-title">特征5：URL后缀为脚本文件</div>
+                    <div>请求URL以 <code>.sh</code> 结尾，这是Shell脚本的标准后缀。</div>
+                    <div class="item-evidence">/process/cfid/change/CZ1000055929/<span style="color:#ff4d4f;font-weight:bold;">copy_delete_member_files.sh</span></div>
+                </li>
+
+                <li class="detection-item">
+                    <div class="item-title">特征6：HTTP方法 + 请求体大小</div>
+                    <div>PUT方法上传较大的脚本内容（6KB），符合"上传恶意脚本"的攻击模式。</div>
+                    <div class="item-evidence">
+                        方法: PUT &nbsp;&nbsp; 大小: 6256 bytes &nbsp;&nbsp; 内容: bash脚本
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 命中的命令逐行标注 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-orange">📝</span>
+                脚本命令命中标注（红色 = 触发检测的命令）
+            </div>
+
+            <div class="code-block">
+<span class="code-highlight"><span class="line-num">1</span>#!/bin/bash</span>
+<span class="code-line"><span class="line-num">2</span></span>
+<span class="code-line"><span class="line-num">3</span><span style="color:#6a9955;"># 从共享目录 /backup 拷贝公共脚本...</span></span>
+<span class="code-line"><span class="line-num">4</span><span style="color:#6a9955;"># 用法...</span></span>
+<span class="code-line"><span class="line-num">5</span><span style="color:#6a9955;">#   ./copy_delete_member_files.sh</span></span>
+<span class="code-line"><span class="line-num">6</span></span>
+<span class="code-highlight"><span class="line-num">7</span>set -u</span>
+<span class="code-line"><span class="line-num">8</span></span>
+<span class="code-line"><span class="line-num">9</span>SHARED_DIR="/backup/delete_member"</span>
+<span class="code-line"><span class="line-num">10</span>TARGET_BASE_DIR="/pmts/cfg/delete_member"</span>
+<span class="code-highlight"><span class="line-num">11</span>TIMESTAMP="$(date +%Y%m%dT%H%M%S)"</span>
+<span class="code-line"><span class="line-num">12</span>TARGET_DIR="${TARGET_BASE_DIR}/${TIMESTAMP}"</span>
+<span class="code-highlight"><span class="line-num">13</span>LOG_FILE="./copy_delete_member_files_$(date +%Y%m%d).log"</span>
+<span class="code-line"><span class="line-num">14</span></span>
+<span class="code-line"><span class="line-num">15</span><span style="color:#6a9955;"># ==================== 日志函数 ====================</span></span>
+<span class="code-line"><span class="line-num">16</span>log_info() {</span>
+<span class="code-line"><span class="line-num">17</span>    typeset msg="$1"</span>
+<span class="code-highlight"><span class="line-num">18</span>    echo "[$(date +%Y%m%dT%H%M%S)][INFO] ${msg}" | tee -a "$LOG_FILE"</span>
+<span class="code-line"><span class="line-num">19</span>}</span>
+<span class="code-line"><span class="line-num">20</span></span>
+<span class="code-line"><span class="line-num">21</span>log_error_and_exit() {</span>
+<span class="code-line"><span class="line-num">22</span>    typeset msg="$1"</span>
+<span class="code-highlight"><span class="line-num">23</span>    echo "[$(date +%Y%m%dT%H%M%S)][ERROR] ${msg}" | tee -a "$LOG_FILE"</span>
+<span class="code-highlight"><span class="line-num">24</span>    echo "&lt;result&gt;&lt;-1&gt;&lt;msg&gt;&lt;${msg}&gt;&lt;log&gt;&lt;${LOG_FILE}&gt;"</span>
+<span class="code-highlight"><span class="line-num">25</span>    exit 1</span>
+<span class="code-line"><span class="line-num">26</span>}</span>
+<span class="code-line"><span class="line-num">27</span></span>
+<span class="code-line"><span class="line-num">28</span>check_prerequisites() {</span>
+<span class="code-highlight"><span class="line-num">29</span>    if [ "$#" -ne 0 ]; then</span>
+<span class="code-line"><span class="line-num">30</span>        usage</span>
+<span class="code-highlight"><span class="line-num">31</span>        log_error_and_exit "该脚本不需要参数"</span>
+<span class="code-line"><span class="line-num">32</span>    fi</span>
+<span class="code-line"><span class="line-num">33</span></span>
+<span class="code-highlight"><span class="line-num">34</span>    [ -d "$SHARED_DIR" ] || log_error_and_exit "共享目录不存在: $SHARED_DIR"</span>
+<span class="code-highlight"><span class="line-num">35</span>    [ -f "${SHARED_DIR}/delete_member.sh" ] || log_error_and_exit "缺少 delete_member.sh"</span>
+<span class="code-line"><span class="line-num">...</span>    ...</span>
+<span class="code-line"><span class="line-num">40</span>}</span>
+<span class="code-line"><span class="line-num">41</span></span>
+<span class="code-line"><span class="line-num">42</span>backup_source_file() {</span>
+<span class="code-line"><span class="line-num">43</span>    typeset src_file="$1"</span>
+<span class="code-line"><span class="line-num">44</span>    typeset bak_file="${src_file}.bak.${TIMESTAMP}"</span>
+<span class="code-line"><span class="line-num">45</span></span>
+<span class="code-highlight"><span class="line-num">46</span>    [ ! -e "$bak_file" ] || log_error_and_exit "源文件备份已存在: $bak_file"</span>
+<span class="code-highlight"><span class="line-num">47</span>    mv "$src_file" "$bak_file" || log_error_and_exit "备份重命名失败"</span>
+<span class="code-line"><span class="line-num">48</span>    log_info "已备份并移除源文件${src_file},备份文件${bak_file}"</span>
+<span class="code-line"><span class="line-num">49</span>}</span>
+<span class="code-line"><span class="line-num">50</span></span>
+<span class="code-line"><span class="line-num">51</span>copy_files() {</span>
+<span class="code-line"><span class="line-num">52</span>    typeset server_name="$1"</span>
+<span class="code-line"><span class="line-num">53</span></span>
+<span class="code-highlight"><span class="line-num">54</span>    if [ ! -d "$TARGET_DIR" ]; then</span>
+<span class="code-highlight"><span class="line-num">55</span>        mkdir -p "$TARGET_DIR" || log_error_and_exit "创建目标目录失败"</span>
+<span class="code-line"><span class="line-num">56</span>        log_info "已创建目标目录: $TARGET_DIR"</span>
+<span class="code-line"><span class="line-num">57</span>    fi</span>
+<span class="code-line"><span class="line-num">58</span></span>
+<span class="code-highlight"><span class="line-num">59</span>    cp -p "${SHARED_DIR}/delete_member.sh" "${TARGET_DIR}/delete_member.sh"</span>
+<span class="code-highlight"><span class="line-num">60</span>    cp -p "${SHARED_DIR}/generate.sh" "${TARGET_DIR}/generate.sh"</span>
+<span class="code-highlight"><span class="line-num">61</span>    cp -p "${SHARED_DIR}/great_modify_file.sh" "${TARGET_DIR}/great_modify_file.sh"</span>
+<span class="code-highlight"><span class="line-num">62</span>    cp -p "${SHARED_DIR}/great_restore_file.sh" "${TARGET_DIR}/great_restore_file.sh"</span>
+<span class="code-line"><span class="line-num">63</span></span>
+<span class="code-highlight"><span class="line-num">64</span>    cp -p "$list_file" "${TARGET_DIR}/delete_members.txt"</span>
+<span class="code-highlight"><span class="line-num">65</span>    cp -p "$config_file" "${TARGET_DIR}/great_config_file.ini"</span>
+<span class="code-line"><span class="line-num">66</span></span>
+<span class="code-highlight"><span class="line-num">67</span>    chown -R pmts:pmts "$TARGET_DIR" || log_error_and_exit "设置属主失败"</span>
+<span class="code-highlight"><span class="line-num">68</span>    chmod 700 "$TARGET_DIR" || log_error_and_exit "设置权限失败"</span>
+<span class="code-line"><span class="line-num">69</span></span>
+<span class="code-highlight"><span class="line-num">70</span>    chmod 700 "${TARGET_DIR}/delete_member.sh"</span>
+<span class="code-highlight"><span class="line-num">71</span>    chmod 700 "${TARGET_DIR}/generate.sh"</span>
+<span class="code-highlight"><span class="line-num">72</span>    chmod 700 "${TARGET_DIR}/great_modify_file.sh"</span>
+<span class="code-highlight"><span class="line-num">73</span>    chmod 700 "${TARGET_DIR}/great_restore_file.sh"</span>
+<span class="code-line"><span class="line-num">74</span></span>
+<span class="code-highlight"><span class="line-num">75</span>    backup_source_file "$list_file"</span>
+<span class="code-highlight"><span class="line-num">76</span>    backup_source_file "$config_file"</span>
+<span class="code-line"><span class="line-num">77</span>}</span>
+<span class="code-line"><span class="line-num">78</span></span>
+<span class="code-line"><span class="line-num">79</span>main() {</span>
+<span class="code-line"><span class="line-num">80</span>    typeset server_name</span>
+<span class="code-line"><span class="line-num">81</span></span>
+<span class="code-highlight"><span class="line-num">82</span>    check_prerequisites "$@"</span>
+<span class="code-highlight"><span class="line-num">83</span>    server_name="$(hostname)"</span>
+<span class="code-line"><span class="line-num">84</span></span>
+<span class="code-highlight"><span class="line-num">85</span>    case "$server_name" in</span>
+<span class="code-line"><span class="line-num">86</span>        SCIPSGWA|SCIPSGWB|WCIPSGWA|WCIPSGWB)</span>
+<span class="code-line"><span class="line-num">87</span>            log_info "当前服务器: $server_name"</span>
+<span class="code-line"><span class="line-num">88</span>            ;;</span>
+<span class="code-line"><span class="line-num">89</span>        *)</span>
+<span class="code-highlight"><span class="line-num">90</span>            log_error_and_exit "当前服务器不在允许范围内: $server_name"</span>
+<span class="code-line"><span class="line-num">91</span>            ;;</span>
+<span class="code-highlight"><span class="line-num">92</span>    esac</span>
+<span class="code-line"><span class="line-num">93</span></span>
+<span class="code-highlight"><span class="line-num">94</span>    copy_files "$server_name"</span>
+<span class="code-highlight"><span class="line-num">95</span>    log_success_and_exit "拷贝完成..."</span>
+<span class="code-line"><span class="line-num">96</span>}</span>
+<span class="code-line"><span class="line-num">97</span></span>
+<span class="code-highlight"><span class="line-num">98</span>main "$@"</span>
+            </div>
+
+            <div class="highlight-box">
+                <div class="box-title">💡 统计</div>
+                <p>
+                    脚本共约98行，其中<strong style="color:#ff4d4f;">红色高亮的约40+行</strong>包含可被安全设备识别为"命令执行"的特征关键字。
+                    命令种类包括：文件操作(cp/mv/mkdir/chmod/chown)、系统命令(date/hostname/tee/echo)、控制结构(if/case/function/exit)等。
+                </p>
+            </div>
+        </div>
+
+        <!-- 检测规则示例 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-purple">📐</span>
+                安全设备检测规则原理
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <div class="rule-example">
+                        <div class="rule-title">规则类型1：脚本开头匹配</div>
+                        <p style="font-size:13px; color:#666; margin-bottom:8px;">检测请求体是否包含脚本shebang</p>
+                        <code>content:"#!/bin/bash";</code><br>
+                        <code>content:"#!/bin/sh";</code><br>
+                        <code>content:"#!/usr/bin/python";</code>
+                    </div>
+
+                    <div class="rule-example">
+                        <div class="rule-title">规则类型2：危险命令关键字</div>
+                        <p style="font-size:13px; color:#666; margin-bottom:8px;">匹配系统命令关键字</p>
+                        <code>pcre:"/(cp|mv|rm|mkdir|chmod|chown)\s+/";</code>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="rule-example">
+                        <div class="rule-title">规则类型3：URL后缀匹配</div>
+                        <p style="font-size:13px; color:#666; margin-bottom:8px;">匹配脚本文件后缀</p>
+                        <code>url:endswith:".sh";</code><br>
+                        <code>url:endswith:".php";</code><br>
+                        <code>url:endswith:".jsp";</code>
+                    </div>
+
+                    <div class="rule-example">
+                        <div class="rule-title">规则类型4：组合判断</div>
+                        <p style="font-size:13px; color:#666; margin-bottom:8px;">多个条件同时命中才告警</p>
+                        <code>脚本标识 + 命令关键字 + PUT方法</code><br>
+                        <code>= 命令执行攻击</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="box-title">⚠️ 安全设备的局限性</div>
+                <p>
+                    安全设备只能做<strong>特征匹配</strong>，无法理解业务上下文。它不知道这是MinIO对象存储的复制操作，
+                    也不知道文件只是被存储而不是被执行。只要内容命中了规则特征，就会触发告警。
+                    这就是产生<strong style="color:#ff4d4f;">误报</strong>的原因。
+                </p>
+            </div>
+        </div>
+
+        <!-- 命中详情汇总 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-cyan">📋</span>
+                命中特征汇总表
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>检测维度</th>
+                        <th>具体内容</th>
+                        <th>是否命中</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>脚本shebang</td>
+                        <td><code>#!/bin/bash</code></td>
+                        <td><span class="tag tag-danger">命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>文件操作命令</td>
+                        <td>cp, mv, mkdir, chmod, chown, tee 等</td>
+                        <td><span class="tag tag-danger">命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>系统信息命令</td>
+                        <td>date, hostname</td>
+                        <td><span class="tag tag-danger">命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>脚本控制结构</td>
+                        <td>function, if, case, exit, $()</td>
+                        <td><span class="tag tag-danger">命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>URL后缀</td>
+                        <td>.sh 结尾</td>
+                        <td><span class="tag tag-danger">命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>HTTP方法</td>
+                        <td>PUT（上传文件）</td>
+                        <td><span class="tag tag-warning">部分命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>Content-Type</td>
+                        <td>application/octet-stream（二进制流）</td>
+                        <td><span class="tag tag-warning">部分命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>命令拼接符</td>
+                        <td>无 |, &amp;&amp;, ;, ` 等</td>
+                        <td><span class="tag tag-success">未命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>反弹Shell特征</td>
+                        <td>无 bash -i, nc -e, /dev/tcp</td>
+                        <td><span class="tag tag-success">未命中</span></td>
+                    </tr>
+                    <tr>
+                        <td>恶意下载特征</td>
+                        <td>无 wget, curl 下载外部文件</td>
+                        <td><span class="tag tag-success">未命中</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box" style="margin-top: 15px;">
+                <div class="box-title">📊 命中统计</div>
+                <p>
+                    <strong>命中特征：</strong>6项（脚本标识 + 命令关键字 × 3 + URL后缀 + 方法）<br>
+                    <strong>未命中特征：</strong>3项（命令拼接符、反弹Shell、恶意下载）<br>
+                    <strong>综合判断：</strong>命中数量达到告警阈值 → <strong style="color:#ff4d4f;">触发告警</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- 最终判断逻辑 -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-green">🎯</span>
+                最终判断逻辑
+            </div>
+
+            <div style="background: #f6ffed; border: 1px solid #b7eb8f; border-radius: 8px; padding: 20px; margin: 10px 0;">
+                <div style="font-size: 16px; font-weight: bold; color: #52c41a; margin-bottom: 15px;">
+                    安全设备的判断公式
+                </div>
+
+                <div style="font-family: Consolas, monospace; font-size: 15px; line-height: 2;">
+                    <div>IF (请求体包含 <span style="color:#ff4d4f;">#!/bin/bash</span>)</div>
+                    <div>&nbsp;&nbsp;&nbsp;AND (包含 <span style="color:#ff4d4f;">cp|mv|mkdir|chmod</span> 等系统命令)</div>
+                    <div>&nbsp;&nbsp;&nbsp;AND (URL以 <span style="color:#ff4d4f;">.sh</span> 结尾)</div>
+                    <div>&nbsp;&nbsp;&nbsp;AND (HTTP方法为 <span style="color:#ff4d4f;">PUT/POST</span>)</div>
+                    <div>&nbsp;&nbsp;&nbsp;AND (命令数量 &gt; 阈值)</div>
+                    <div>THEN = <span style="color:#ff4d4f; font-weight: bold;">命令执行攻击</span></div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 15px;">
+                <div class="box-title">💡 一句话总结</div>
+                <p>
+                    安全设备看到：<strong>PUT请求上传了一个以.sh结尾的文件，文件内容是bash脚本，里面有大量Linux系统命令</strong>
+                    → 这就是典型的"上传WebShell/恶意脚本"模式 → 判定为命令执行攻击，触发告警。
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>命令执行攻击检测逻辑分析报告 | 2026-06-25</p>
+        </div>
+    </div>
+</body>
+</html>

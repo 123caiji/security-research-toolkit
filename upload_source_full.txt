@@ -1,0 +1,191 @@
+def upload_get(self, parsed, message=""):
+        user = self.current_user()
+        csrf = self.csrf_cookie()
+        notice = f'<p class="notice">{message}</p>' if message else ""
+        body = f"""<section class="panel">
+  <h1>文件上传</h1>
+  <p class="muted">选择图片文件上传。</p>
+  <p><a class="button secondary" href="/upload-source">查看源码</a></p>
+  {notice}
+  <form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf" value="{html.escape(csrf)}">
+    <label>选择文件 <input name="file" type="file"></label>
+    <button type="submit">上传</button>
+  </form>
+</section>"""
+        self.send_html(page("文件上传", body, user), extra_headers=self.csrf_headers(csrf))
+
+
+def upload_source(self, parsed):
+        user = self.current_user()
+        lines = Path(__file__).read_text(encoding="utf-8", errors="ignore").splitlines()
+        names = [
+            "def upload_get",
+            "def upload_source",
+            "def upload_post",
+            "def parse_multipart_file",
+            "def detect_image_type",
+            "def validate_image_payload",
+            "def serve_upload",
+        ]
+
+        def extract_function(name):
+            start = None
+            for idx, line in enumerate(lines):
+                if line.lstrip().startswith(name):
+                    start = idx
+                    indent = len(line) - len(line.lstrip())
+                    break
+            if start is None:
+                return ""
+            end = len(lines)
+            for idx in range(start + 1, len(lines)):
+                line = lines[idx]
+                stripped = line.lstrip()
+                if not stripped:
+                    continue
+                line_indent = len(line) - len(stripped)
+                if line_indent <= indent and (stripped.startswith("def ") or stripped.startswith("class ")):
+                    end = idx
+                    break
+            return "\n".join(lines[start:end]).strip()
+
+        chunks = []
+        for name in names:
+            chunk = extract_function(name)
+            if chunk:
+                chunks.append(chunk)
+        shown = html.escape("\n\n\n".join(chunks))
+        body = f"""<section class="panel">
+  <h1>文件上传源码</h1>
+  <p><a href="/upload">返回上传</a></p>
+  <pre class="source-code">{shown}</pre>
+</section>"""
+        self.send_html(page("文件上传源码", body, user))
+
+
+def upload_post(self):
+        user = self.current_user()
+        ctype = self.headers.get("Content-Type", "")
+        length = int(self.headers.get("Content-Length", "0"))
+        if length > MAX_UPLOAD_SIZE:
+            self._audit_note = f"upload blocked: too large ({length} bytes)"
+            self.upload_get(urlparse(self.path), "文件超过 2MB 限制")
+            return
+        body = self.rfile.read(length)
+        upload = self.parse_multipart_file(ctype, body)
+        if upload is None:
+            self._audit_note = "upload blocked: no file"
+            self.upload_get(urlparse(self.path), "没有选择文件")
+            return
+        name, file_type, payload, fields = upload
+        if not self.verify_csrf(fields.get("csrf", "")):
+            self._audit_note = "upload blocked: csrf"
+            self.csrf_failed()
+            return
+        ext = name.rsplit(".", 1)[-1].lower() if "." in name else ""
+        ext = "." + ext if ext else ""
+        if ext not in ALLOWED_UPLOAD_EXTENSIONS:
+            self._audit_note = f"upload blocked: extension {ext or '(none)'}"
+            self.upload_get(urlparse(self.path), "文件扩展名不在白名单中")
+            return
+        if not file_type.startswith("image/"):
+            self._audit_note = f"upload blocked: content-type {file_type[:60]}"
+            self.upload_get(urlparse(self.path), "只允许图片 Content-Type")
+            return
+        detected_ext, detected_mime = detect_image_type(payload)
+        if detected_ext is None or detected_ext != ext or detected_mime != file_type:
+            self._audit_note = f"upload blocked: magic mismatch {name[:80]}"
+            self.upload_get(urlparse(self.path), "文件内容与图片类型不匹配")
+            return
+        if not validate_image_payload(payload, detected_ext):
+            self._audit_note = f"upload blocked: invalid image {name[:80]}"
+            self.upload_get(urlparse(self.path), "图片文件无效或包含附加内容")
+            return
+        safe_name = f"{uuid.uuid4().hex}{detected_ext}"
+        target = UPLOADS / safe_name
+        target.write_bytes(payload)
+        self._audit_note = f"upload success: {name[:80]} -> {safe_name}"
+        self.upload_get(
+            urlparse(self.path),
+            f'上传成功：<a href="/uploads/{quote(safe_name)}">/uploads/{html.escape(safe_name)}</a>',
+        )
+
+
+def parse_multipart_file(self, content_type, body):
+        marker = "boundary="
+        if marker not in content_type:
+            return None
+        boundary = content_type.split(marker, 1)[1].strip().strip('"')
+        delimiter = ("--" + boundary).encode()
+        fields = {}
+        file_result = None
+        for part in body.split(delimiter):
+            if b'Content-Disposition:' not in part:
+                continue
+            header_blob, _, payload = part.partition(b"\r\n\r\n")
+            if not payload:
+                continue
+            payload = payload.rstrip(b"\r\n-")
+            headers = header_blob.decode("utf-8", "ignore")
+            field_name = ""
+            filename = ""
+            file_type = "application/octet-stream"
+            for line in headers.splitlines():
+                lower = line.lower()
+                if lower.startswith("content-disposition:"):
+                    name_match = re.search(r'name="([^"]+)"', line)
+                    if name_match:
+                        field_name = name_match.group(1)
+                    if "filename=" in line:
+                        filename = line.split("filename=", 1)[1].strip().strip('"')
+                if lower.startswith("content-type:"):
+                    file_type = line.split(":", 1)[1].strip()
+            if filename:
+                file_result = (Path(filename).name, file_type, payload)
+            elif field_name:
+                fields[field_name] = payload.decode("utf-8", "ignore")
+        if file_result:
+            name, file_type, payload = file_result
+            return name, file_type, payload, fields
+        return None
+
+
+def detect_image_type(payload):
+    for ext, (mime, signatures) in ALLOWED_UPLOADS.items():
+        if any(payload.startswith(signature) for signature in signatures):
+            return ext, mime
+    return None, None
+
+
+def validate_image_payload(payload, ext):
+    lowered = payload.lower()
+    dangerous_tokens = (b"<?php", b"<script", b"<%", b"#!")
+    if any(token in lowered for token in dangerous_tokens):
+        return False
+    stripped = payload.rstrip()
+    if ext == ".gif":
+        return stripped.endswith(b";")
+    if ext == ".png":
+        return stripped.endswith(b"\x00\x00\x00\x00IEND\xaeB`\x82")
+    if ext in {".jpg", ".jpeg"}:
+        return stripped.endswith(b"\xff\xd9")
+    return False
+
+
+def serve_upload(self, path):
+        name = unquote(path.removeprefix("/uploads/"))
+        target = UPLOADS / Path(name).name
+        if not target.exists():
+            self.not_found()
+            return
+        data = target.read_bytes()
+        self.send_response(200)
+        ext = target.suffix.lower()
+        mime = ALLOWED_UPLOADS.get(ext, ("application/octet-stream", []))[0]
+        self.send_header("Content-Type", mime)
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Content-Disposition", f'inline; filename="{target.name}"')
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本地工具调用卡片审核循环系统</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div>
+          <h1>工具调用审核引擎</h1>
+          <p>本工程工具卡片自动循环</p>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="视图">
+        <button class="nav-tab active" data-view="board">看板</button>
+        <button class="nav-tab" data-view="planner">循环</button>
+        <button class="nav-tab" data-view="logs">日志</button>
+      </nav>
+
+      <section class="metric-stack" aria-label="系统指标">
+        <div class="metric"><span id="metricTotal">0</span><small>工具调用卡片</small></div>
+        <div class="metric"><span id="metricRisk">0</span><small>需复核</small></div>
+        <div class="metric"><span id="metricAuto">0%</span><small>审核通过率</small></div>
+      </section>
+
+      <section class="panel compact">
+        <h2>工具池</h2>
+        <div id="toolPool" class="tool-pool"></div>
+      </section>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">local tool loop</p>
+          <h2>工程内工具调用卡片自动分类、执行推进与审核通过循环</h2>
+        </div>
+        <div class="actions">
+          <button id="btnSyncTools">同步工程工具</button>
+          <button id="btnStepLoop">执行一轮</button>
+          <button id="btnToggleLoop">开始循环</button>
+          <button id="btnImport">导入</button>
+          <button id="btnExport">导出</button>
+          <input id="fileImport" type="file" accept="application/json" hidden>
+        </div>
+      </header>
+
+      <section class="filters">
+        <label>
+          <span>搜索</span>
+          <input id="searchInput" type="search" placeholder="工具名、分类、类型、调用目的">
+        </label>
+        <label>
+          <span>工具分类</span>
+          <select id="categoryFilter"></select>
+        </label>
+        <label>
+          <span>工具类型</span>
+          <select id="typeFilter"></select>
+        </label>
+        <label>
+          <span>排序</span>
+          <select id="sortMode">
+            <option value="ai">AI 权重</option>
+            <option value="stage">循环阶段</option>
+            <option value="risk">复核风险</option>
+            <option value="updated">更新时间</option>
+          </select>
+        </label>
+      </section>
+
+      <section id="boardView" class="view active">
+        <div id="board" class="board" aria-live="polite"></div>
+      </section>
+
+      <section id="plannerView" class="view">
+        <div class="planner-grid">
+          <section class="panel">
+            <h2>循环队列</h2>
+            <div id="scheduleList" class="schedule-list"></div>
+          </section>
+          <section class="panel">
+            <h2>流转指令</h2>
+            <div id="commandList" class="command-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="logsView" class="view">
+        <section class="panel">
+          <h2>自动化轨迹</h2>
+          <div id="logList" class="log-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="cardDialog">
+    <form method="dialog" id="cardForm">
+      <header>
+        <h2 id="dialogTitle">工具调用卡片</h2>
+        <button value="cancel" class="ghost" type="submit">关闭</button>
+      </header>
+      <div class="form-grid">
+        <label><span>工具名</span><input name="toolName" required></label>
+        <label><span>工具分类</span><input name="category"></label>
+        <label><span>工具类型</span><input name="toolType"></label>
+        <label><span>优先级</span><select name="priority"></select></label>
+        <label><span>循环阶段</span><select name="stage"></select></label>
+        <label><span>审核状态</span><select name="reviewStatus"></select></label>
+        <label class="wide"><span>调用目的</span><textarea name="intent" rows="4"></textarea></label>
+        <label class="wide"><span>工具路径 / URL</span><input name="target"></label>
+        <label class="wide"><span>执行上下文 JSON</span><textarea name="context" rows="3" placeholder='{"scope": "local", "mode": "dry_run"}'></textarea></label>
+      </div>
+      <footer>
+        <button id="btnDeleteCard" type="button" class="danger">删除</button>
+        <span></span>
+        <button value="cancel" type="submit" class="ghost">取消</button>
+        <button id="btnSaveCard" value="default" type="submit">保存并重新分类</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>

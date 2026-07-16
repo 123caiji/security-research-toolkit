@@ -1,0 +1,41 @@
+[
+  {
+    "url": "http://127.0.0.1:8765/",
+    "host": "127.0.0.1",
+    "port": 8765,
+    "service_type": "T01",
+    "priority_hint": "P2",
+    "server": "http-demo/1.0",
+    "statuscode": 200,
+    "length": 512,
+    "title": "demo-page",
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "url": "http://10.0.0.1:80/",
+    "host": "10.0.0.1",
+    "port": 80,
+    "service_type": "T02",
+    "priority_hint": "P0",
+    "server": "mgmt-demo/1.0",
+    "statuscode": 200,
+    "length": 1024,
+    "title": "",
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "url": "http://10.0.0.2:8080/",
+    "host": "10.0.0.2",
+    "port": 8080,
+    "service_type": "T03",
+    "priority_hint": "P1",
+    "server": "app-demo/1.0",
+    "statuscode": 200,
+    "length": 2048,
+    "title": "",
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  }
+]

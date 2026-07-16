@@ -1,0 +1,32 @@
+[
+  {
+    "host": "127.0.0.1",
+    "port": 8765,
+    "service_type": "T01",
+    "priority": "P2",
+    "risk_note": "本地模拟：标准优先级占位",
+    "flagged": false,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "host": "10.0.0.1",
+    "port": 80,
+    "service_type": "T02",
+    "priority": "P0",
+    "risk_note": "本地模拟：高优先级占位 / 教学标记",
+    "flagged": true,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "host": "10.0.0.2",
+    "port": 8080,
+    "service_type": "T03",
+    "priority": "P1",
+    "risk_note": "本地模拟：中优先级占位",
+    "flagged": false,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  }
+]

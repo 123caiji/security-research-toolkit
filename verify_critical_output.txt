@@ -1,0 +1,114 @@
+﻿======================================================================
+=== 1. getNoPwdByPhoneNo 完整API定义 ===
+======================================================================
+
+[1] {url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH)}
+
+======================================================================
+=== 2. 搜索所有没有isSgp属性的端点 ===
+======================================================================
+
+总共有 456 个sgp API端点
+isSgp=false的: 3 个
+isSgp=true的: 409 个
+没有明确isSgp属性的: 44 个
+
+没有isSgp属性的端点列表:
+  sgp/ClientRelationshipCollectSop
+  sgp/SaveHouseholdSurveyInfoMovSop
+  sgp/SaveHouseholdSurveyInfoSop
+  sgp/SelectCreditApplyInfoSop
+  sgp/SelectCreditInfoAuthorizationSop
+  sgp/SelectHouseholdSurveyInfoSop
+  sgp/SelectLoanApplicationInfoSop
+  sgp/UseCreditaApplySubmitAndEnabledSop
+  sgp/convertAgreenmentHtml2Pdf
+  sgp/createCommonAgreement
+  sgp/createContract
+  sgp/createNewAgreementFile
+  sgp/createTask
+  sgp/deleteSurveyViewLog
+  sgp/formatDocContent
+  sgp/getAgreementInfo
+  sgp/getGeoData
+  sgp/getLastSurveySupplementLogList
+  sgp/getNoPwdByPhoneNo
+  sgp/getProductStoreInfoByRelation
+  sgp/getSurveyResponseWeb
+  sgp/getSuverysByProjectIdAndTaskCode
+  sgp/getWorkEffortBillRef
+  sgp/modifySurveyAnswer
+  sgp/nextTaskByCustNo
+  sgp/processStart
+  sgp/query/getAllNodeByProcessId
+  sgp/queryAgreementListByProductId
+  sgp/queryAgreementThruDate
+  sgp/queryCommomAgreementBizList
+  sgp/queryCustBusiness
+  sgp/queryIdentificationCardInfo
+  sgp/queryListByWorkEffortId
+  sgp/queryPartyByAreaCode
+  sgp/queryQrCodeTellerInfo
+  sgp/querySurveyViewLog
+  sgp/queryTellerById
+  sgp/saveAgreementItem
+  sgp/saveSurveyViewLog
+  sgp/signAgreement
+  sgp/taskCallBack
+  sgp/transferRequest
+  sgp/validateChannel
+  sgp/validateRules
+
+======================================================================
+=== 3. 关键高风险端点验证 ===
+======================================================================
+
+sgp/getNoPwdByPhoneNo:
+  完整定义: {url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH)}
+  isSgp: 未设置(默认?)
+
+sgp/sendLoginSmsCode:
+  完整定义: {url:"sgp/sendLoginSmsCode",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH),isSgp:!0}
+  isSgp: true
+
+sgp/queryVerificationCode.auth:
+  完整定义: {url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1}
+  isSgp: false
+
+sgp/sgpTellerLogin.auth:
+  完整定义: {url:"sgp/sgpTellerLogin.auth",mockUrl:/\/sgpTellerLogin/,TranCode:"".concat(n.default.spgKeys.test,"-Login"),isSgp:!1}
+  isSgp: false
+
+sgp/selectPersonCust:
+  完整定义: {url:"sgp/selectPersonCust",mockUrl:/\/selectPersonCust/,TranCode:"".concat(n.default.spgKeys.CUST_INFO),isSgp:!0}
+  isSgp: true
+
+sgp/queryIdentificationCardInfo:
+  完整定义: {url:"sgp/queryIdentificationCardInfo",TranCode:"".concat(n.default.spgKeys.CUST_INFO)}
+  isSgp: 未设置(默认?)
+
+sgp/queryTellerById:
+  完整定义: {url:"sgp/queryTellerById",TranCode:"".concat(n.default.spgKeys.SSP_AUTH)}
+  isSgp: 未设置(默认?)
+
+sgp/download:
+  完整定义: {url:"sgp/download",mockUrl:/\/getShareInstDetail/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0}
+  isSgp: true
+
+======================================================================
+=== 4. sendLoginSmsCode 详细分析 ===
+======================================================================
+
+1}),s)},sendVerificationCode:function(e,t,s){var o=this;return(0,r.default)((0,n.default)().m((function r(){var u,a,d;return(0,n.default)().w((function(n){while(1)switch(n.n){case 0:return u={loginId:o.loginId,loginType:"phone"},e&&(u=(0,i.default)((0,i.default)({},u),e)),n.n=1,o.$post(o.$api.login.sendLoginSmsCode,u).catch((function(e){s(!1),o.sliderDisplay=!0}));case 1:if(a=n.v,"000000"===a.Header.RetCode){n.n=2;break}return s(!1),o.sliderDisplay=!0,o.$toast.fail(a.Header.RetMsg),n.a(2);case 2:e&&t(),d=o.limitTime,o.timer||(o.count=d,o.show=!1,o.timer=setInterval((function(){o.count>0&&o.cou
+
+======================================================================
+=== 5. 滑块验证 slideCheck/slideInfo ===
+======================================================================
+
+slideCheck: mageX:e,verifyCode:t.verifyCode,imageY:t.positionY},n={timestamp:(new Date).getTime(),sign:"",PLATID:"WX",platid:"WX",imageX:e,verifyCode:t.verifyCode,imageY:t.positionY},s.n=1,t.$post(t.$api.safeapi.slideCheck,n);case 1:if(i=s.v,i){s.n=2;break}return s.a(2,!1);case 2:"00000"===i.STATUS&&"1"===i.RESULTOBJECT.code?(o.smsMethod(),o.isPuzzleVerification=!1):t.$toast(i.RESULTOBJECT.message||"网络有误");ca
+
+slideInfo: ),d=o.limitTime,o.timer||(o.count=d,o.show=!1,o.timer=setInterval((function(){o.count>0&&o.count<=d?o.count--:(o.show=!0,clearInterval(o.timer),o.timer=null)}),1e3));case 3:return r.a(2)}}),i)})))()},slideInfo:function(){var e=this;return(0,i.default)((0,r.default)().m((function t(){var s,o,n,i,u,a,d;return(0,r.default)().w((function(t){while(1)switch(t.n){case 0:return s={timestamp:(new Date).get
+
+checkSilderImg: n i(){var u,a,d;return(0,r.default)().w((function(r){while(1)switch(r.n){case 0:return u={loginId:o.loginId,loginType:"phone"},e&&(u=(0,n.default)((0,n.default)({},u),e)),r.n=1,o.$post(o.$api.safeapi.checkSilderImg,u).catch((function(e){s(!1),o.sliderDisplay=!0}));case 1:if(a=r.v,"000000"===a.Header.RetCode){r.n=2;break}return s(!1),o.sliderDisplay=!0,o.$toast.fail(a.Header.RetMsg),r.a(2);case 2:e
+
+=== 完成 ===

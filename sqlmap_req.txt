@@ -1,0 +1,6 @@
+POST /dlydjd/sgp/transferRequest HTTP/1.1
+Host: dl.brcloud.bankofchina.com
+Content-Type: application/json
+Authorization: 987654321
+
+{"Header":{"TranCode":"AGRE-AGRE/getAgreementInfo","ServiceName":"getAgreementInfo","ServiceCode":"D20190130","BranchId":"800000","LegalRepCode":"10000","TranDate":"20260716","TranTime":"004500000","CurrentPageNum":1,"PageTotalNum":10,"AuthFlag":"0","Channel":"39","ConsumerId":"1","SourceSysId":"1111","TerminalCode":"1121","TranTeller":"","TotalNum":"0","GlobalSeq":"1","TranSeq":"1","KeyId":"1","Mac":"1","LocalLang":"1","TranTellerNo":"1","AuthrTellerNo":"1","GlobalSeqNo":"1","TranSeqNo":"1","ExtendContent":"1"},"templateId":"FDC1360001*"}

@@ -1,0 +1,15 @@
+{
+  "phase": 1,
+  "title": "信息收集（本地模拟）",
+  "collected_at": "2026-06-25 23:04:33",
+  "target_file": "data/targets.txt",
+  "virtual_rows": 3,
+  "targets_preview": [
+    "http://127.0.0.1:8765/",
+    "http://10.0.0.1:80/",
+    "http://10.0.0.2:8080/"
+  ],
+  "_simulation": true,
+  "_source": "local_virtual_no_network",
+  "note": "仅从工程内文本读取目标列表，未对任何主机发起连接或扫描。"
+}

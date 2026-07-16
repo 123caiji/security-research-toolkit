@@ -1,0 +1,38 @@
+[
+  {
+    "host": "127.0.0.1",
+    "port": 8765,
+    "service_type": "T01",
+    "placeholder_credentials": [
+      "占位条目-无",
+      "占位条目-自定义"
+    ],
+    "flagged": false,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "host": "10.0.0.1",
+    "port": 80,
+    "service_type": "T02",
+    "placeholder_credentials": [
+      "占位组合-A",
+      "占位组合-B"
+    ],
+    "flagged": true,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  },
+  {
+    "host": "10.0.0.2",
+    "port": 8080,
+    "service_type": "T03",
+    "placeholder_credentials": [
+      "占位组合-C",
+      "占位组合-D"
+    ],
+    "flagged": false,
+    "_simulation": true,
+    "_source": "local_virtual_no_network"
+  }
+]

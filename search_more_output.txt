@@ -1,0 +1,75 @@
+﻿======================================================================
+=== 1. 搜索验证码相关 (短信、图形、滑块) ===
+======================================================================
+  smsCode: 38 处
+  verifyCode: 9 处
+  verificationCode: 16 处
+  captcha: 0 处
+  sms: 139 处
+
+======================================================================
+=== 2. 搜索密码相关 (加密、编码、存储) ===
+======================================================================
+  encodePwd: 10 处
+  encryptPwd: 0 处
+  password: 8 处
+  passwd: 0 处
+  pwd: 19 处
+  encodeSM3: 0 处
+
+encodePwd上下文:
+  urn(0,i.default)((0,r.default)().m((function t(){var s,o,n;return(0,r.default)().w((function(t){while(1)switch(t.n){case 0:return s=e,o={userId:e.$refs.accountFromUser[0].userObj.userId,password:(0,a.encodePwd)(e.$refs.accountFromPsd[0].userObj.code),verifyWays:"",loginType:"",finger:"",face:"",competenceMark:"0",hm:"",tokenMark:"0",gotoIndex:s.gotoIndex},t.n=1,e.$post(e.$api.common.login,o);case 1:n=t.v,e.$store.commit("user/setUserInfo",n),e.initOrgMenu(n);case 2:return t.a(2)}}),t)})))()},ini
+
+======================================================================
+=== 3. 搜索角色权限相关 ===
+======================================================================
+  roleId: 88 处
+  roleIds: 73 处
+  permission: 49 处
+  auth: 989 处
+  authorize: 28 处
+
+======================================================================
+=== 4. 搜索订单/贷款相关敏感接口 ===
+======================================================================
+  createOrder: {url:"sgp/createOrder",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0}
+  deleteOrder: {url:"sgp/deleteOrder",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0}
+  editOrder: {url:"sgp/editOrder",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0}
+  createContract: {url:"sgp/createContract",TranCode:"".concat(n.default.spgKeys.IMPLEMENT)}
+  signAgreement: {url:"sgp/signAgreement",TranCode:"".concat(n.default.spgKeys.AGRE_AGRE)}
+  signature: {url:"sgp/signature",mockUrl:/\/createDefaultStoreProduct/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0}
+  createPersonCustSop: {url:"sgp/createPersonCustSop",mockUrl:/\/createPersonCust/,TranCode:n.default.spgKeys.sopService,isSgp:!0}
+  updatePersonCust: {url:"sgp/updatePersonCust",mockUrl:/\/updatePersonCust/,TranCode:"".concat(i.default.spgKeys.CUST_INFO),isSgp:!0}
+
+======================================================================
+=== 5. 搜索支付/银行卡相关 ===
+======================================================================
+  debitCard: 6 处
+  bankCard: 4 处
+  pay: 114 处
+  payment: 69 处
+  account: 321 处
+  balance: 1 处
+
+======================================================================
+=== 6. 搜索社工库/信息查询接口 ===
+======================================================================
+  socIns: 1 处
+  social: 48 处
+  housePrice: 3 处
+
+socInsDataQuery上下文:
+  cat(n.default.spgKeys.IMPLEMENT),isSgp:!0},checkSilderImg:{url:"sgp/checkSilderImg",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH),isSgp:!0},socSecData:{url:"sgp/socInsDataQuery",mockUrl:/\/getSurveyQuestionByWebInfo/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},eqbCreateOrder:{url:"sgp/createOrder",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"
+
+verifyName上下文:
+  :"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},eqbGetCode:{url:"sgp/getCode",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},eqbVerifyName:{url:"sgp/verifyName",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},eqbSignature:{url:"sgp/signature",mockUrl:/\/createDefaultStoreProduct/,TranCode:"".concat(n
+
+======================================================================
+=== 7. 搜索硬编码的敏感值 ===
+======================================================================
+  BranchId=800000: 2 处
+  LegalRepCode=10000: 2 处
+  Channel=39: 5 处
+  SourceSysId=1111: 2 处
+
+=== 完成 ===

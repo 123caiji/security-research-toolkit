@@ -1,0 +1,19 @@
+{
+  "phase": 3,
+  "title": "场景占位（未执行任何外部操作）",
+  "scenarios": [
+    {
+      "id": "SCN_01",
+      "description": "高优先级条目的理论核查步骤（仅占位，不演示真实命令）。",
+      "tied_to_priority": "P0"
+    },
+    {
+      "id": "SCN_02",
+      "description": "中优先级条目的方法论说明（仅占位，不对外发包）。",
+      "tied_to_priority": "P1"
+    }
+  ],
+  "based_on_entries": 3,
+  "_simulation": true,
+  "_source": "local_virtual_no_network"
+}
