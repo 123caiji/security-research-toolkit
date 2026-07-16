@@ -1,0 +1,11 @@
+{
+  "phase": 4,
+  "title": "后续流程占位",
+  "items": [
+    "拓扑推断：仅课堂讨论，无真实探测。",
+    "凭据相关话题：本阶段不调用任何外部工具。",
+    "横向话题：不在本脚本中实现或指导。"
+  ],
+  "_simulation": true,
+  "_source": "local_virtual_no_network"
+}

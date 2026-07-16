@@ -1,0 +1,356 @@
+﻿======================================================================
+=== 1. 分析SGP请求调用方式 ===
+======================================================================
+
+找到 450 个SGP端点调用
+
+=== 2. 高敏感端点详细分析 ===
+======================================================================
+
+============================================================
+端点: sgp/getNoPwdByPhoneNo
+============================================================
+
+  上下文 [1]:
+    st/vuex.esm.js"),a=s("./src/utils/format.utils.js");t.default={name:"FreeLogin",data:function(){return{isLogining:!1}},props:{},created:function(){},mounted:function(){this.$route.query.phoneNo&&this.getNoPwdByPhoneNo(this.$route.query.phoneNo)},watch:{},computed:(0,i.default)({},(0,u.mapState)({use
+
+  上下文 [2]:
+    r",["login"])),{},{getNoPwdByPhoneNo:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r;return(0,n.default)().w((function(s){while(1)switch(s.n){case 0:return t.isLogining=!0,o={phoneNo:e},s.n=1,t.$post(t.$api.common.getNoPwdByPhoneNo,o).catch((function(e){t.isLoginin
+
+  上下文 [3]:
+    n.default.spgKeys.test,"-Logout"),isSgp:!1},queryVerificationCode:{url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1},getNoPwdByPhoneNo:{url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.de
+
+============================================================
+端点: sgp/sendLoginSmsCode
+============================================================
+
+  上下文 [1]:
+    ion r(){var u,a,d;return(0,n.default)().w((function(n){while(1)switch(n.n){case 0:return u={loginId:o.loginId,loginType:"phone"},e&&(u=(0,i.default)((0,i.default)({},u),e)),n.n=1,o.$post(o.$api.login.sendLoginSmsCode,u).catch((function(e){s(!1),o.sliderDisplay=!0}));case 1:if(a=n.v,"000000"===a.Head
+
+  上下文 [2]:
+    oncat(n.default.spgKeys.EC_SURVEYMGR),isSgp:!0},modifySRQuestionAppl:{url:"sgp/modifySRQuestionAppl",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.EC_SURVEYMGR),isSgp:!0},sendLoginSmsCode:{url:"sgp/sendLoginSmsCode",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".conca
+
+============================================================
+端点: sgp/queryIdentificationCardInfo
+============================================================
+
+  上下文 [1]:
+    ult={name:"personalVideoAuth",data:function(){return{title:"实名认证",buttonInfos:[{colSpan:24,buttonText:"开始验证"}]}},components:{},computed:{},watch:{},mounted:function(){this.getFaceValidate()},methods:{queryIdentificationCardInfo:function(e){return this.$post(this.$api.survey.queryIdentificationCardIn
+
+  上下文 [2]:
+    ules/@babel/runtime/helpers/asyncToGenerator.js"));t.default={name:"personalVideoAuth",data:function(){return{}},components:{},computed:{},watch:{},mounted:function(){this.getFaceValidate()},methods:{queryIdentificationCardInfo:function(e){return this.$post(this.$api.survey.queryIdentificationCardIn
+
+  上下文 [3]:
+    aveAgreementItem:{url:"sgp/saveAgreementItem",TranCode:"".concat(n.default.spgKeys.AGRE_AGRE)},getAvailableProductSop:{url:"sgp/getAvailableProductSop",TranCode:"".concat(n.default.spgKeys.SOP_SERV)},queryIdentificationCardInfo:{url:"sgp/queryIdentificationCardInfo",TranCode:"".concat(n.default.spgK
+
+============================================================
+端点: sgp/idcardOCR
+============================================================
+
+  上下文 [1]:
+    ).default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/views/subMall/component-vueUse-ui/customB-center-ui/authentication-center-ui/config/index.js"));t.default={idcardOCR:{url:"sgp/idcardOCR",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},addIdentifica
+
+============================================================
+端点: sgp/getOcrIdCardResult
+============================================================
+
+  上下文 [1]:
+    r e=JSON.parse(this.$route.query.userInfo),t=JSON.parse(this.$route.query.otherJSON);Object.keys(e).length<=0||(this.$store.commit("user/setUserInfo",e),this.$store.commit("user/setOtherJSON",t),this.getOcrIdCardResult())},getOcrIdCardResult:function(){var e=this;return(0,r.default)((0,n.default)().
+
+  上下文 [2]:
+    ",mockUrl:/\/selectPersonCust/,TranCode:"".concat(n.default.spgKeys.CUST_INFO),isSgp:!1},initIdCardInformation:{url:"sgp/initIdCardInformation",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getOcrIdCardResult:{url:"sgp/getOcrIdCardResult",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp
+
+============================================================
+端点: sgp/QueryIdentityInfoSop
+============================================================
+
+  上下文 [1]:
+    abel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/config/index.js"));t.default={queryIdentityInfoSop:{url:"sgp/QueryIdentityInfoSop",mockUrl:/\/sgpTellerLogin/,TranCode:"".concat(n.default.spgKeys.SOP_STYY),isSg
+
+============================================================
+端点: sgp/selectPersonCust
+============================================================
+
+  上下文 [1]:
+    {var e=this;return(0,r.default)((0,n.default)().m((function t(){var s,o;return(0,n.default)().w((function(t){while(1)switch(t.n){case 0:return s=e.userInfo.custNo,o={custNo:s},t.n=1,e.$post(a.default.selectPersonCust,o);case 1:e.queryParams=t.v;case 2:return t.a(2)}}),t)})))()},mounted:function(){va
+
+  上下文 [2]:
+    ,loginUserinfo:{},roleIds:[],setRoleIdsChildren:[],viewPermission:[],areaList:{},productId:"",postData:"",isShowName:!1,isShowMsg:!1}},watch:{show:{handler:function(e,t){e?(this.showSignPopup=!0,this.selectPersonCust()):this.showSignPopup=!1},deep:!1,immediate:!1}},computed:(0,i.default)({},(0,u.map
+
+  上下文 [3]:
+    w?(this.showSignPopup=!0,this.selectPersonCust()):this.showSignPopup=!1},destroyed:function(){},methods:{onClickLeft:function(){this.showSignPopup=!1,this.$emit("signPopupClosed",{clearAgreementReadStatus:!0})},isShowChangeName:function(e){this.isShowName=e.isShowName,this.isShowMsg=e.isShowMsg},isS
+
+============================================================
+端点: sgp/selectPersonCustSop
+============================================================
+
+  上下文 [1]:
+    /index.js"));t.default={myCustDimQryList:{url:"sgp/myCustDimQryList",mockUrl:/\/myCustDimQryList/,TranCode:n.default.spgKeys.customercenterCustomerservice,isSgp:!0},selectPersonAndRelations:{url:"sgp/selectPersonCustSop",mockUrl:/\/selectPersonAndRelations/,TranCode:n.default.spgKeys.sopService,isSg
+
+============================================================
+端点: sgp/queryCustComponentDetail
+============================================================
+
+  上下文 [1]:
+    ict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/config/index.js"));t.default={queryCustComponentDetail:{url:"sgp/queryCustComponentDetail",TranCode:"".concat(n.default.spgKeys.CU
+
+  上下文 [2]:
+    case 6:if(c=o.v,"000000"!==c.Header.RetCode){o.n=10;break}if(i.productStoreId=c.productStoreId,i.viewedProductList=[],!l.productStoreId){o.n=9;break}return m=null,o.n=7,s._vm.$post(s._vm.$api.channel.queryCustComponentDetail,{custComponentTemplateId:"HZHB",isValid:"1"});case 7:if(p=o.v,"000000"!==p.
+
+============================================================
+端点: sgp/queryCustRequestDetail
+============================================================
+
+  上下文 [1]:
+    nCode:"".concat(n.default.spgKeys.PMP_PROJ),isSgp:!0},creditPlanRegisterSop:{url:"sgp/CreditPlanRegisterSop",mockUrl:/\/CreditPlanRegisterSop/,TranCode:"".concat(n.default.spgKeys.SOP_SERV),isSgp:!0},queryCustRequestDetail:{url:"sgp/queryCustRequestDetail",mockUrl:/\/queryCustRequestDetail/,TranCode
+
+============================================================
+端点: sgp/selectCustPrivateManageInfoListSop
+============================================================
+
+  上下文 [1]:
+    merservice,isSgp:!0},selectPersonAndRelations:{url:"sgp/selectPersonCustSop",mockUrl:/\/selectPersonAndRelations/,TranCode:n.default.spgKeys.sopService,isSgp:!0},selectCustPrivateManageInfo:{url:"sgp/selectCustPrivateManageInfoListSop",mockUrl:/\/selectCustPrivateManageInfoListSop/,TranCode:n.defaul
+
+============================================================
+端点: sgp/SelectLoanInformation
+============================================================
+
+  上下文 [1]:
+    ict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/config/index.js"));t.default={SelectLoanInformation:{url:"sgp/SelectLoanInformation",TranCode:"".concat(n.default.spgKeys.HOUSE_CR
+
+============================================================
+端点: sgp/SelectLoanApplicationInfoSop
+============================================================
+
+  上下文 [1]:
+    Code:"".concat(n.default.spgKeys.sopService)},SaveHouseholdSurveyInfoSop:{url:"sgp/SaveHouseholdSurveyInfoSop",mockUrl:/\/SaveHouseholdSurveyInfoSop/,TranCode:"".concat(n.default.spgKeys.sopService)},SelectLoanApplicationInfoSop:{url:"sgp/SelectLoanApplicationInfoSop",mockUrl:/\/SelectLoanApplicatio
+
+  上下文 [2]:
+    Code:"".concat(n.default.spgKeys.sopService)},SaveHouseholdSurveyInfoSop:{url:"sgp/SaveHouseholdSurveyInfoSop",mockUrl:/\/SaveHouseholdSurveyInfoSop/,TranCode:"".concat(n.default.spgKeys.sopService)},SelectLoanApplicationInfoSop:{url:"sgp/SelectLoanApplicationInfoSop",mockUrl:/\/SelectLoanApplicatio
+
+============================================================
+端点: sgp/SelectCreditApplyInfoSop
+============================================================
+
+  上下文 [1]:
+    erSop",TranCode:"".concat(n.default.spgKeys.SOP_SERV)},getSurveyRelationshipQuestion:{url:"sgp/getSurveyRelationshipQuestion",TranCode:"".concat(n.default.spgKeys.OMP_CMGR)},querySurveyData:{url:"sgp/SelectCreditApplyInfoSop",TranCode:"".concat(n.default.spgKeys.SOP_SERV)},getSuverysByProjectIdAndTa
+
+============================================================
+端点: sgp/queryOrderDetail
+============================================================
+
+  上下文 [1]:
+    EN),isSgp:!0},editOrder:{url:"sgp/editOrder",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},queryOrderArray:{url:"sgp/queryOrderArray",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},queryOrderDetail:{url:"sgp/queryOrderDetail",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0}
+
+============================================================
+端点: sgp/queryOrderBasicInfo
+============================================================
+
+  上下文 [1]:
+    anCode:"".concat(n.default.spgKeys.TRAD_OPRO),isSgp:!0},paymentOrderBatchExt:{url:"sgp/paymentOrderBatchExt",mockUrl:/\/paymentOrderBatchExt/,TranCode:"".concat(n.default.spgKeys.TRAD_OPRO),isSgp:!0},queryOrderBasicInfo:{url:"sgp/queryOrderBasicInfo",mockUrl:/\/queryOrderBasicInfo/,TranCode:"".conca
+
+============================================================
+端点: sgp/getFaceParam
+============================================================
+
+  上下文 [1]:
+    Keys.CUST_INFO),isSgp:!0},addMerchantBusinessLicenseInfo:{url:"sgp/addMerchantBusinessLicenseInfo",mockUrl:/\/addMerchantBusinessLicenseInfo/,TranCode:"".concat(n.default.spgKeys.CUST_INFO),isSgp:!0},getFaceParam:{url:"sgp/getFaceParam",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getFace
+
+============================================================
+端点: sgp/getFaceValidate
+============================================================
+
+  上下文 [1]:
+    s/es.object.keys.js"),s("./node_modules/core-js/modules/esnext.json.parse.js");var o=s("./src/utils/format.utils.js");t.default={data:function(){return{}},created:function(){},mounted:function(){this.getFaceValidate()},methods:{goAuthen:function(){var e=this.$store.getters["user/getUserInfo"],t=this
+
+  上下文 [2]:
+    tName:t.nextComponentName}})},getFaceValidate:function(){this.$store.dispatch("user/initUserKeyGroup"),this.$store.dispatch("user/isApiUseEncryptionList");var e=JSON.parse(this.$route.query.userInfo),t=JSON.parse(this.$route.query.otherJSON);if(!(Object.keys(e).length<=0)){var s=(0,o.getUrlParams)()
+
+  上下文 [3]:
+    ntication/index.js"));t.default={name:"personalVideoAuth",data:function(){return{title:"实名认证",buttonInfos:[{colSpan:24,buttonText:"开始验证"}]}},components:{},computed:{},watch:{},mounted:function(){this.getFaceValidate()},methods:{queryIdentificationCardInfo:function(e){return this.$post(this.$api.surv
+
+============================================================
+端点: sgp/getPersonFaceResult
+============================================================
+
+  上下文 [1]:
+    取失败"),s.$router.push({path:"/subMall",query:{componentId:"FDP1610000"}}),o.a(2);case 1:return a={idCard:i,name:u,idCardType:0,fileId:e.data.fileId,action:t.action},o.n=2,s.$post(s.$api.authentication.getPersonFaceResult,a,{NoRetCode:!1});case 2:o.v;case 3:return o.a(2)}}),o)})))()},gotojinjian:funct
+
+  上下文 [2]:
+    ation:{url:"sgp/initIdCardInformation",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getOcrIdCardResult:{url:"sgp/getOcrIdCardResult",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getPersonFaceResult:{url:"sgp/getPersonFaceResult",TranCode:"".concat(n.default.spgKeys.IMPLEMENT),i
+
+============================================================
+端点: sgp/queryFaceToken
+============================================================
+
+  上下文 [1]:
+    sult:{url:"sgp/getOcrIdCardResult",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getPersonFaceResult:{url:"sgp/getPersonFaceResult",TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},queryFaceToken:{url:"sgp/queryFaceToken",TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},c
+
+============================================================
+端点: sgp/download
+============================================================
+
+  上下文 [1]:
+    eId||e.textData)){var o=new RegExp(globalConfig.signKeyword,"g");this.currentAgreement=(0,n.default)((0,n.default)({},e),{},{index:t,textData:e.textData?e.textData.replace(o,""):"",url:e.fileId?this.$downloadFile({fileId:e.fileId}):""}),this.$nextTick((function(){s.$refs.filecontent.scrollTop=0})),t
+
+  上下文 [2]:
+    nction(e){var t=this;this.isRenderHtml||this.$previewFile({fileId:e.fileId}).then((function(e){"000000"===e.Header.RetCode?t.docOptions.fileIdList=e.fileIdList.map((function(e){return{fileId:e,src:t.$downloadFile({fileId:e})}})):t.$toast({message:e.Header.RetMsg,type:"fail",className:"custom-toast-z
+
+  上下文 [3]:
+    THEME_COLOR:"",n=[];t&&t.agreementItemOutList&&t.agreementItemOutList.forEach((function(t){t.isSign&&"0"==t.isSign&&n.push({FILE_NAME:t.agreementItemSeqId+"-"+t.agreementFileName,FILE_PATH:(e&&e.sxCa.downloadUrl?e.sxCa.downloadUrl:"")+"?fileId="+t.agreementText,KEY_WORD:e&&e.sxCa.KEY_WORD?e.sxCa.KEY
+
+============================================================
+端点: sgp/onlinePreview
+============================================================
+
+  上下文 [1]:
+    GR)},removeFile:{url:"http/removeFile",TranCode:"".concat(n.default.spgKeys.EC_FILE_MGR)},queryFile:{url:"http/queryFileInfo",TranCode:"".concat(n.default.spgKeys.EC_FILE_MGR)},previewFile:{url:"http/onlinePreview",TranCode:"".concat(n.default.spgKeys.EC_FILE_MGR)},tranToPdfFile:{url:"http/transFile
+
+  上下文 [2]:
+    n.default.spgKeys.AGRE_AGRE),isSgp:!0},queryAgreementTemplateList:{url:"sgp/queryAgreementTemplateList",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.AGRE_AGRE),isSgp:!0},onlinePreview:{url:"sgp/onlinePreview",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.de
+
+============================================================
+端点: sgp/queryAllApproveTask
+============================================================
+
+  上下文 [1]:
+    1)switch(s.n){case 0:return o={userId:t.userInfo.userId,curPage:1,pageRows:10,taskCodeList:t.taskCodeList,workOperator:t.userInfo.userId,processCodeList:[t.loanProcessCode]},s.n=1,t.$post(t.$api.mine.queryAllApproveTaskByTeller,o);case 1:n=s.v,t.$set(t,"dototal",n.pageData.totalRows),e();case 2:retu
+
+  上下文 [2]:
+    reak}return t.n=2,e.$downloadFile({fileId:""});case 2:e.filePath=t.v;case 3:e.queryDoList(s,e.dototal);case 4:return t.a(2)}}),t)})))()},queryDoList:function(e,t){var s=this;this.$post(this.$api.mine.queryAllApproveTaskByTeller,e).then((function(e){s.sourceData=[].concat((0,n.default)(s.sourceData),
+
+  上下文 [3]:
+    rPage)*Number(e.pageData.pageRows)>=Number(e.pageData.totalRows)&&(s.finished=!0)})).catch((function(){s.isLoading=!1,s.myLoading=!1}))},queryDoList:function(e,t){var s=this;this.$post(this.$api.mine.queryAllApproveTask,e).then((function(e){e.pageData.result.forEach((function(e){e.filePath=s.filePat
+
+============================================================
+端点: sgp/queryTellerById
+============================================================
+
+  上下文 [1]:
+    n t.a(2)}}),t)})))()},gotoPage:function(e){this.$router.push({path:e})},showPopup:function(){},showUndoPopup:function(e){globalConfig.isMyorderFace?(sessionStorage.setItem("nextComponentName",e),this.queryTellerById()):this.$router.push({path:e,query:{}})},queryTellerById:function(){var e=this;retur
+
+  上下文 [2]:
+    uthentication.queryTellerById,o);case 1:n=t.v,i=n.tellerBaseMap,i&&e.$router.push({path:"/personalVideoAuth",query:{idcard:i.identityCard,name:i.tellerName,customerId:s.userId}});case 2:return t.a(2)}}),t)})))()},enterprise:function(){this.$router.push({name:"enterprise"})},showAgreementPopup:functi
+
+  上下文 [3]:
+    ict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/config/index.js"));t.default={queryTellerById:{url:"sgp/queryTellerById",TranCode:"".concat(n.default.spgKeys.SSP_AUTH)},saveSurve
+
+============================================================
+端点: sgp/authentication
+============================================================
+
+  上下文 [1]:
+    s"),s("./node_modules/core-js/modules/web.url-search-params.has.js"),s("./node_modules/core-js/modules/web.url-search-params.size.js");var u=s("./node_modules/vuex/dist/vuex.esm.js"),a=o(s("./src/api/authentication/index.js"));t.default={name:"externalAuthorization",props:{value:{type:[String,Number
+
+  上下文 [2]:
+    ime/helpers/asyncToGenerator.js")),i=o(s("./node_modules/@babel/runtime/helpers/objectSpread2.js")),u=(s("./node_modules/vant/es/index.js"),s("./node_modules/vuex/dist/vuex.esm.js")),a=o(s("./src/api/authentication/index.js")),d=s("./src/utils/format.utils.js"),l=(s("./src/utils/util.js"),o(s("./src
+
+  上下文 [3]:
+    js")),r=o(s("./node_modules/@babel/runtime/helpers/asyncToGenerator.js")),i=o(s("./node_modules/@babel/runtime/helpers/objectSpread2.js")),u=s("./node_modules/vuex/dist/vuex.esm.js"),a=o(s("./src/api/authentication/index.js")),d=o(s("./src/components/commonForm/signNameFrame.vue")),l=o(s("./src/comp
+
+============================================================
+端点: sgp/signatureCheck
+============================================================
+
+  上下文 [1]:
+    e),{},{agreementImage:sessionStorage.getItem("signNameFileId")})})),g={userId:p.userId,agreementList:h},_=sessionStorage.getItem("accessVerifyId"),_&&(g.accessVerifyId=_),t.n=7,e.$post(e.$api.safeapi.signatureCheck,g);case 7:j=t.v,"S"==j.Header.RetStatus?(y="asyn"===j.caMode,y?(b=j.caId,b?e.$emit("c
+
+  上下文 [2]:
+    e),{},{agreementImage:sessionStorage.getItem("signNameFileId")})})),g={userId:p.userId,agreementList:h},_=sessionStorage.getItem("accessVerifyId"),_&&(g.accessVerifyId=_),t.n=5,e.$post(e.$api.safeapi.signatureCheck,g);case 5:j=t.v,"S"==j.Header.RetStatus?(y="asyn"===j.caMode,y?(b=j.caId,b?e.$emit("c
+
+  上下文 [3]:
+    essionStorage.getItem("signNameFileId")})})),i={userId:s.userId,agreementList:o,smsCode:e.form.smsCode},u=sessionStorage.getItem("accessVerifyId"),u&&(i.accessVerifyId=u),t.n=1,e.$post(e.$api.safeapi.signatureCheck,i);case 1:a=t.v,"S"==a.Header.RetStatus?(a.externalVerifyId&&sessionStorage.setItem("
+
+============================================================
+端点: sgp/queryConsumerPostalAddress
+============================================================
+
+  上下文 [1]:
+    ict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=o(s("./src/config/index.js"));t.default={queryConsumerPostalAddress:{url:"sgp/queryConsumerPostalAddress",mockUrl:/\/queryConsumerPostalAddre
+
+============================================================
+端点: sgp/queryDebitCardByPartyId
+============================================================
+
+  上下文 [1]:
+    ode:"".concat(n.default.spgKeys.PROD_PSTR),isSgp:!0},queryBankCardsBinInfo:{url:"sgp/queryBankCardsBinInfo",mockUrl:/\/queryBankCardsBinInfo/,TranCode:"".concat(n.default.spgKeys.PAYM_PPRO),isSgp:!0},queryDebitCardByPartyId:{url:"sgp/queryDebitCardByPartyId",mockUrl:/\/queryDebitCardByPartyId/,TranC
+
+============================================================
+端点: sgp/queryPartyBonusPoints
+============================================================
+
+  上下文 [1]:
+    .default.spgKeys.TRAD_RQUO),isSgp:!0},productOrderInterestsTrial:{url:"sgp/productOrderInterestsTrial",mockUrl:/\/productOrderInterestsTrial/,TranCode:"".concat(n.default.spgKeys.TRAD_SCAR),isSgp:!0},queryPartyBonusPoints:{url:"sgp/queryPartyBonusPoints",mockUrl:/\/queryPartyBonusPoints/,TranCode:""
+
+============================================================
+端点: sgp/socInsDataQuery
+============================================================
+
+  上下文 [1]:
+    cat(n.default.spgKeys.IMPLEMENT),isSgp:!0},checkSilderImg:{url:"sgp/checkSilderImg",mockUrl:/\/querySourceTypeOfMsgCount/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH),isSgp:!0},socSecData:{url:"sgp/socInsDataQuery",mockUrl:/\/getSurveyQuestionByWebInfo/,TranCode:"".concat(n.default.spgKeys.IMPLEME
+
+============================================================
+端点: sgp/queryHousePrice
+============================================================
+
+  上下文 [1]:
+    se strict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;o(s("./src/config/index.js")),t.default={queryHousePrice:{url:"sgp/queryHousePrice",mockUrl:/\/queryHousePrice/,TranCode:"FRMC/houseassets",i
+
+============================================================
+端点: sgp/queryBankCardsBinInfo
+============================================================
+
+  上下文 [1]:
+    al/,TranCode:"".concat(n.default.spgKeys.PROD_PSTR),isSgp:!0},deleteStoreSpecial:{url:"sgp/deleteStoreSpecial",mockUrl:/\/deleteStoreSpecial/,TranCode:"".concat(n.default.spgKeys.PROD_PSTR),isSgp:!0},queryBankCardsBinInfo:{url:"sgp/queryBankCardsBinInfo",mockUrl:/\/queryBankCardsBinInfo/,TranCode:""
+
+======================================================================
+=== 3. 分析getNoPwdByPhoneNo (高风险) ===
+======================================================================
+
+[1] js"),s("./node_modules/core-js/modules/web.dom-collections.for-each.js");var n=o(s("./node_modules/@babel/runtime/helpers/regenerator.js")),r=o(s("./node_modules/@babel/runtime/helpers/asyncToGenerator.js")),i=o(s("./node_modules/@babel/runtime/helpers/objectSpread2.js")),u=s("./node_modules/vuex/dist/vuex.esm.js"),a=s("./src/utils/format.utils.js");t.default={name:"FreeLogin",data:function(){return{isLogining:!1}},props:{},created:function(){},mounted:function(){this.$route.query.phoneNo&&this.
+
+[2] ing=!0,o={phoneNo:e},s.n=1,t.$post(t.$api.common.getNoPwdByPhoneNo,o).catch((function(e){t.isLogining=!1}));case 1:r=s.v,"000000"===r.Header.RetCode?t.login(r):(t.isLogining=!1,t.$toast.fail(r.Header.RetMsg));case 2:return s.a(2)}}),s)})))()},login:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r,i,u,d;return(0,n.default)().w((function(s){while(1)switch(s.p=s.n){case 0:return o=(0,a.getUrlParams)(),r={userId:e.userId,loginType:"user",verifyWays:"sign",password:e
+
+[3] p.test.js");var n=o(s("./src/config/index.js")),r=o(s("./src/api/axios.js"));t.default={login:{url:"sgp/sgpTellerLogin.auth",mockUrl:/\/sgpTellerLogin/,TranCode:"".concat(n.default.spgKeys.test,"-Login"),isSgp:!1},logout:{url:"sgp/sgpTellerLogout.auth",mockUrl:/\/sgpTellerLogout/,TranCode:"".concat(n.default.spgKeys.test,"-Logout"),isSgp:!1},queryVerificationCode:{url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1},
+
+======================================================================
+=== 4. 分析SGP请求的认证方式 ===
+======================================================================
+
+模式: sgp.{0,200}Authorization
+  sgp/createCommonAgreement",mockUrl:/\/createCommonAgreement/,TranCode:"".concat(n.default.spgKeys.agreementcenterAgreement)},selectCreditInfoAuthorizationSop:{url:"sgp/SelectCreditInfoAuthorization
+
+模式: Authorization.{0,200}sgp
+  AuthorizationSop:{url:"sgp
+
+模式: sgp.{0,200}token
+  Sgp:!1},isApiUseEncryptionList:{url:(r&&r["NOSGP"]?r["NOSGP"]:"")+"gateway/admin/isApiUseEncryptionList",mockUrl:/\/selectPersonCust/,TranCode:"".concat(n.default.spgKeys.CUST_INFO),isSgp:!1},buildNon
+  SGP"]?r["NOSGP"]:"")+"gateway/admin/buildNonceToken
+  sgp/getOcrIdCardResult",TranCode:"".concat(n.default.spgKeys.EC_IDEN),isSgp:!0},getPersonFaceResult:{url:"sgp/getPersonFaceResult",TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},queryFaceTo
+
+模式: token.{0,200}sgp
+  Token:{url:(r&&r["NOSGP"]?r["NOSGP"]:"")+"gateway/admin/buildNonceToken",mockUrl:/\/selectPersonCust/,TranCode:"".concat(n.default.spgKeys.CUST_INFO),isSgp:!1},initIdCardInformation:{url:"sgp
+  Token:{url:"sgp/queryFaceToken",TranCode:"".concat(n.default.spgKeys.IMPLEMENT),isSgp:!0},checkWorkEffortIng:{url:"sgp
+
+模式: sgp/transferRequest
+  sgp/transferRequest
+  sgp/transferRequest
+  sgp/transferRequest
+
+======================================================================
+=== 5. 分析SOP端点的通用调用函数 ===
+======================================================================
+
+模式: SopService|sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+  sopService
+
+=== 完成 ===

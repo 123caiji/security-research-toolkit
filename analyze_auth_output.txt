@@ -1,0 +1,86 @@
+﻿======================================================================
+=== 1. 找出所有isSgp:!1的端点 (非SGP转发) ===
+======================================================================
+
+找到 13 个isSgp=false的端点:
+  http/largeFile/getUploadId
+  http/largeFile/mergeFile
+  http/largeFile/sliceUpload
+  http/uploadByBase64
+  http://${config.ajaxConfig.fileUrl}/getFileService
+  http://${config.ajaxConfig.fileUrl}/upLoadFileService
+  queryLoanApplyData
+  sgp/queryVerificationCode.auth
+  sgp/queryVerificationCode.auth
+  sgp/sgpTellerLogin.auth
+  sgp/sgpTellerLogin.auth
+  sgp/sgpTellerLogout.auth
+  sgp/sgpTellerLogout.auth
+
+======================================================================
+=== 2. getNoPwdByPhoneNo 详细分析 ===
+======================================================================
+
+--- 出现位置 1 ---
+  r.js")),i=o(s("./node_modules/@babel/runtime/helpers/objectSpread2.js")),u=s("./node_modules/vuex/dist/vuex.esm.js"),a=s("./src/utils/format.utils.js");t.default={name:"FreeLogin",data:function(){return{isLogining:!1}},props:{},created:function(){},mounted:function(){this.$route.query.phoneNo&&this.getNoPwdByPhoneNo(this.$route.query.phoneNo)},watch:{},computed:(0,i.default)({},(0,u.mapState)({userInfo:function(e){return e.user.userInfo},roleIdsChildren:function(e){return e.user.roleIdsChildren}
+
+--- 出现位置 2 ---
+  phoneNo)},watch:{},computed:(0,i.default)({},(0,u.mapState)({userInfo:function(e){return e.user.userInfo},roleIdsChildren:function(e){return e.user.roleIdsChildren},subMallInfo:function(e){return e.survey.subMallInfo}})),methods:(0,i.default)((0,i.default)({},(0,u.mapActions)("user",["login"])),{},{getNoPwdByPhoneNo:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r;return(0,n.default)().w((function(s){while(1)switch(s.n){case 0:return t.isLogining=!0,o={phoneNo:e
+
+--- 出现位置 3 ---
+  0,i.default)((0,i.default)({},(0,u.mapActions)("user",["login"])),{},{getNoPwdByPhoneNo:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r;return(0,n.default)().w((function(s){while(1)switch(s.n){case 0:return t.isLogining=!0,o={phoneNo:e},s.n=1,t.$post(t.$api.common.getNoPwdByPhoneNo,o).catch((function(e){t.isLogining=!1}));case 1:r=s.v,"000000"===r.Header.RetCode?t.login(r):(t.isLogining=!1,t.$toast.fail(r.Header.RetMsg));case 2:return s.a(2)}}),s)})))()},login:
+
+--- 出现位置 4 ---
+  n"),isSgp:!1},logout:{url:"sgp/sgpTellerLogout.auth",mockUrl:/\/sgpTellerLogout/,TranCode:"".concat(n.default.spgKeys.test,"-Logout"),isSgp:!1},queryVerificationCode:{url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1},getNoPwdByPhoneNo:{url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH)},queryMenuData:{url:"queryMenuData",mockUrl:/\/queryMenuData/,TranCode:"".co
+
+--- 出现位置 5 ---
+  gp/sgpTellerLogout.auth",mockUrl:/\/sgpTellerLogout/,TranCode:"".concat(n.default.spgKeys.test,"-Logout"),isSgp:!1},queryVerificationCode:{url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1},getNoPwdByPhoneNo:{url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH)},queryMenuData:{url:"queryMenuData",mockUrl:/\/queryMenuData/,TranCode:"".concat(n.default.spgKeys.test,
+
+--- 出现位置 6 ---
+  rl:/\/sgpTellerLogout/,TranCode:"".concat(n.default.spgKeys.test,"-Logout"),isSgp:!1},queryVerificationCode:{url:"sgp/queryVerificationCode.auth",mockUrl:/\/queryVerificationCode/,TranCode:"".concat(n.default.spgKeys.test,"-test2"),isSgp:!1},getNoPwdByPhoneNo:{url:"sgp/getNoPwdByPhoneNo",mockUrl:/\/getNoPwdByPhoneNo/,TranCode:"".concat(n.default.spgKeys.SSP_AUTH)},queryMenuData:{url:"queryMenuData",mockUrl:/\/queryMenuData/,TranCode:"".concat(n.default.spgKeys.test,"-test2")},SelectHouseholdSurv
+
+======================================================================
+=== 3. FreeLogin 免密登录页面分析 ===
+======================================================================
+
+FreeLogin组件上下文:
+  runtime/helpers/asyncToGenerator.js")),i=o(s("./node_modules/@babel/runtime/helpers/objectSpread2.js")),u=s("./node_modules/vuex/dist/vuex.esm.js"),a=s("./src/utils/format.utils.js");t.default={name:"FreeLogin",data:function(){return{isLogining:!1}},props:{},created:function(){},mounted:function(){this.$route.query.phoneNo&&this.getNoPwdByPhoneNo(this.$route.query.phoneNo)},watch:{},computed:(0,i.default)({},(0,u.mapState)({userInfo:function(e){return e.user.userInfo},roleIdsChildren:function(e){return e.user.roleIdsChildren},subMallInfo:function(e){return e.survey.subMallInfo}})),methods:(0,i.default)((0,i.default)({},(0,u.mapActions)("user",["login"])),{},{getNoPwdByPhoneNo:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r;return(0,n.default)().w((function(s){while(1)switch(s.n){case 0:return t.isLogining=!0,o={phoneNo:e},s.n=1,t.$post(t.$api.common.getNoPwdByPhoneNo,o).catch((function(e){t.isLogining=!1}));case 1:r=s.v,"000000"===r.Header.RetCode?t.login(r):(t.isLogining=!1,t.$toast.fail(r.Header.RetMsg));case 2:return s.a(2)}}),s)})))()},login:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r,i,u,d;return(0,n.default)().w((function(s){while(1)switch(s.p=s.n){case 0:return o=(0,a.getUrlParams)(),r={userId:e.userId,loginType:"user",verifyWays:"sign",password:e.password,TranTime:e.TranTime,TranDate:e.TranDate,finger:"",face:"",competenceMark:"0",hm:"",tokenMark:"0",businessMap:o,loginResult:"IDPWD"},i=e.TranTi
+
+======================================================================
+=== 4. 分析登录流程和认证逻辑 ===
+======================================================================
+
+模式: login\s*:\s*function (2 处)
+  ...tCode?t.login(r):(t.isLogining=!1,t.$toast.fail(r.Header.RetMsg));case 2:return s.a(2)}}),s)})))()},login:function(e){var t=this;return(0,r.default)((0,n.default)().m((function s(){var o,r,i,u,d;return(0,n.default)().w((function(s){while(1)switch(s.p...
+  ...erInfo=null,e.otherJSON=null,e.orgInfo=null,e.storeInfo=null,e.personInfo=null,e.phoneNum=null}},v={login:function(e,t){var s=e.dispatch,o=(e.state,e.commit);t.loginType||(t.password=(0,u.encodePwd)(t.password)),this._vm.$post(this._vm.$api.common.lo...
+
+模式: sgpTellerLogin (16 处)
+  ....data.Header.TranCode),R=window["globalConfig"].isLoginEncryption&&t.data.Header.TranCode.includes("sgpTellerLogin"),!A&&!R){e.n=8;break}if(!window["globalConfig"]||!window["globalConfig"]["useCryptoWorker"]){e.n=7;break}return e.n=6,v.default.protot...
+  ...st.js");var n=o(s("./src/config/index.js")),r=o(s("./src/api/axios.js"));t.default={login:{url:"sgp/sgpTellerLogin.auth",mockUrl:/\/sgpTellerLogin/,TranCode:"".concat(n.default.spgKeys.test,"-Login"),isSgp:!1},logout:{url:"sgp/sgpTellerLogout.auth",m...
+  ...index.js")),r=o(s("./src/api/axios.js"));t.default={login:{url:"sgp/sgpTellerLogin.auth",mockUrl:/\/sgpTellerLogin/,TranCode:"".concat(n.default.spgKeys.test,"-Login"),isSgp:!1},logout:{url:"sgp/sgpTellerLogout.auth",mockUrl:/\/sgpTellerLogout/,TranC...
+
+模式: Bearer\s+ (2 处)
+  ...")[1]:""}),t.data=Object.assign(u,t.data&&t.data.data?t.data.data:{}),t.headers["Authorization"]=o?"Bearer ".concat(o.token):"987654321",t.headers["nonce-token"]=c,t.url&&/removeFile/.test(t.url)&&(g=s("./node_modules/sm-crypto/src/index.js").sm2,_=w...
+  ...unction(){var e=c.default.state.user.userInfo;u.default.defaults.headers.common["Authorization"]=e?"Bearer ".concat(e.token):"987654321";var t=new Date,s=t.getMilliseconds();s<10?s="00"+s:s<100&&(s="0"+s);var o={BranchId:e&&e.orgId?e.orgId:"800000",L...
+
+模式: Authorization.*token (1 处)
+  ..._modules/@vue/cli-service/node_modules/vue-loader/lib/index.js?!./src/components/commonForm/externalAuthorization.vue?vue&type=script&lang=js":function(e,t,s){"use strict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").defa...
+
+模式: token.*Authorization (1 处)
+  ..."user/getUserInfo"],v=new FormData,v.append("files",c),v.append("userId",p?p.tellerId:""),v.append("token",p?p.token:""),v.append("channelId",config.channeId),v.append("mac",(0,d.encodepwdSM3)(String(c.size))),t.n=5,e.$uploadFile(v);case 5:if(f=t.v,"...
+
+======================================================================
+=== 5. 分析默认token和硬编码认证信息 ===
+======================================================================
+
+987654321默认token上下文:
+  en"],Object.assign(u.Header,f,{ServiceName:t.data?t.data.TranCode.split("/")[1]:""}),t.data=Object.assign(u,t.data&&t.data.data?t.data.data:{}),t.headers["Authorization"]=o?"Bearer ".concat(o.token):"987654321",t.headers["nonce-token"]=c,t.url&&/removeFile/.test(t.url)&&(g=s("./node_modules/sm-crypto/src/index.js").sm2,_=window["globalConfig"].K_S,_&&(j=t.data.fileId,y=g.doSignature(j,_,{hash:!0,d
+
+======================================================================
+=== 6. 分析queryHousePrice (FRMC/houseassets) ===
+======================================================================
+
+houseassets上下文:
+  tion(e,t,s){"use strict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;o(s("./src/config/index.js")),t.default={queryHousePrice:{url:"sgp/queryHousePrice",mockUrl:/\/queryHousePrice/,TranCode:"FRMC/houseassets",isSgp:!0}}},"./src/api/workEffort/index.js":function(e,t,s){"use strict";var o=s("./node_modules/@babel/runtime/helpers/interopRequireDefault.js").default;Object.defineProperty(t,"__esMod
+
+=== 完成 ===

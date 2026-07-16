@@ -1,0 +1,25 @@
+{
+  "confirm_exit": true,
+  "theme": "liquid_glass",
+  "font_size": 12,
+  "java8_path": "E:\\BaiduNetdiskDownload\\天狐渗透工具箱-社区版V3.0+4.0更新升级包\\天狐渗透工具箱-社区版V3.0\\Java_path\\Java_8_win\\bin",
+  "java11_path": "E:\\BaiduNetdiskDownload\\天狐渗透工具箱-社区版V3.0+4.0更新升级包\\天狐渗透工具箱-社区版V3.0\\Java_path\\Java_11_win\\bin",
+  "python_path": "E:\\BaiduNetdiskDownload\\天狐渗透工具箱-社区版V3.0+4.0更新升级包\\天狐渗透工具箱-社区版V3.0\\python3\\python.exe",
+  "exit_mode": "ask",
+  "display_mode": "scroll",
+  "cli_python_interpreters": [],
+  "cli_java_interpreters": [],
+  "cli_default_python": "",
+  "cli_default_java": "",
+  "favorite_tools": [],
+  "recent_tools": [
+    [
+      "DirSearch目录探测工具",
+      "信息收集工具"
+    ]
+  ],
+  "main_window_geometry": "AdnQywADAAAAAAAAAAAAAAAABXcAAAMfAAAAAAAAAAAAAAV3AAADHwAAAAAAAAAABgAAAAAAAAAAAAAABXcAAAMf",
+  "main_window_state": "AAAA/wAAAAD9AAAAAAAABXgAAAMgAAAABAAAAAQAAAAIAAAACPwAAAAA",
+  "auto_theme_mode": "manual",
+  "custom_bg_path": ""
+}

@@ -1,0 +1,166 @@
+﻿======================================================================
+=== 1. CUST_INFO 模块所有API ===
+======================================================================
+
+CUST_INFO模块API数: 33
+  sgp/addConsumerPostalAddress
+  sgp/addIdentificationCardInfo
+  sgp/addIdentificationCardInfo
+  sgp/addMerchantBusinessLicenseInfo
+  sgp/deleteConsumerPostalAddress
+  sgp/findListPartyIdentificationAuth
+  sgp/findListPartyIdentificationAuth
+  sgp/getGeoData
+  sgp/initializationCustomerRelationship
+  sgp/partyRemarkInfoSet
+  sgp/queryConsumerPostalAddress
+  sgp/queryCustComponentDetail
+  sgp/queryCustomerAssetArray
+  sgp/queryCustomerAssetArray
+  sgp/queryIdentificationCardInfo
+  sgp/queryPrepaidMerchantBaseInfo
+  sgp/removeCustomerAsset
+  sgp/removeCustomerAsset
+  sgp/revaluationCustomerAsset
+  sgp/revaluationCustomerAsset
+  sgp/selectCustCertificateList
+  sgp/selectPartyGroupCust
+  sgp/selectPartyRemarkInfo
+  sgp/selectPersonCust
+  sgp/selectPersonCust
+  sgp/selectPersonCust
+  sgp/selectPersonCust
+  sgp/selectPersonCust
+  sgp/updateConsumerPostalAddress
+  sgp/updatePartyBaseInfo
+  sgp/updatePartyDefaultInfo
+  sgp/updatePersonCust
+  sgp/userActionAdd
+
+======================================================================
+=== 2. EC_IDEN 模块所有API (身份识别) ===
+======================================================================
+
+EC_IDEN模块API数: 14
+  sgp/completionOrderInfo
+  sgp/deleteOrder
+  sgp/editOrder
+  sgp/getFaceParam
+  sgp/getFaceValidate
+  sgp/getOcrIdCardResult
+  sgp/idcardOCR
+  sgp/initIdCardInformation
+  sgp/initUploadInformation
+  sgp/initUploadInformation
+  sgp/queryOrderArray
+  sgp/queryOrderDetail
+  sgp/queryStatusOptions
+  sgp/verifyBizLicense
+
+======================================================================
+=== 3. SSP_AUTH 模块所有API (认证) ===
+======================================================================
+
+SSP_AUTH模块API数: 11
+  sgp/checkSilderImg
+  sgp/getNoPwdByPhoneNo
+  sgp/getSilderImg
+  sgp/queryActionPermissionByMenuIdRoleId
+  sgp/queryCommonParamList
+  sgp/queryLoginWaysConfigByChannel
+  sgp/queryMenuTreeBySysIdRoleId
+  sgp/queryMenuTreeBySysIdRoleIdWithGuest
+  sgp/queryPartyByAreaCode
+  sgp/queryTellerById
+  sgp/sendLoginSmsCode
+
+======================================================================
+=== 4. IMPLEMENT 模块所有API (执行) ===
+======================================================================
+
+IMPLEMENT模块API数: 18
+  sgp/authUrlQuery
+  sgp/caSendMessage
+  sgp/checkSmsCodeCA
+  sgp/createContract
+  sgp/createOrder
+  sgp/createTask
+  sgp/download
+  sgp/getCode
+  sgp/getPersonFaceResult
+  sgp/queryFaceToken
+  sgp/sendCAService
+  sgp/signature
+  sgp/signatureCheck
+  sgp/slideCheck
+  sgp/slideInfo
+  sgp/socInsDataQuery
+  sgp/synchronousLoanStatusAndSendMsg
+  sgp/verifyName
+
+======================================================================
+=== 5. 客户信息相关接口详细分析 ===
+======================================================================
+  custNo: 89 处
+  partyId: 48 处
+  idCard: 17 处
+  idcard: 17 处
+  customerId: 3 处
+  custId: 0 处
+  userId: 45 处
+
+======================================================================
+=== 6. 搜索越权访问模式 (直接使用URL参数查询) ===
+======================================================================
+
+模式: \$route\.query\.\w+\s*&&\s*\w+\s*\( (0 处)
+
+模式: this\.\$route\.query\.\w+ (94 处)
+  ...;this.$router.push({path:e,query:(0,i.default)({},this.$route.query.priveQuery)})}}}},"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_mo...
+  ...ASKSEQNO=this.postData.TASK_SEQNO,this.themeColor=this.$route.query.themeColor||"#DA223A",sessionStorage.getItem("signParams")){var t=JSON.parse(sessionStorage.getItem("signParam...
+  ...",query:{currentIndex:t,loadStatus:1,workEffortId:this.$route.query.workEffortId,isParty:this.isParty}})},getNewContactFileList:function(e){return new Promise((function(t,s){Promis...
+  ...Id===this.productId&&this.agreementInfo.checkId===this.$route.query.agreementCheckId&&!this.isParty},usePdfWater:function(){return window.globalConfig&&!0===window.globalConfig.usePdfW...
+  ...:return t.a(2)}}),t)})))()},mounted:function(){if(this.$route.query.authresult){var e={fundSocailAuthButton:this.$route.query.authresult};this.setQuestionFormData(e),this.inputOp...
+
+======================================================================
+=== 7. 分析selectPersonCust (个人客户查询) ===
+======================================================================
+
+--- 位置 1 ---
+  {var e=this;return(0,r.default)((0,n.default)().m((function t(){var s,o;return(0,n.default)().w((function(t){while(1)switch(t.n){case 0:return s=e.userInfo.custNo,o={custNo:s},t.n=1,e.$post(a.default.selectPersonCust,o);case 1:e.queryParams=t.v;case 2:return t.a(2)}}),t)})))()},mounted:function(){var e=this;switch(this.ruleNo){case"SZ_GS_AUTH":var t={},s=0;this.ruleNoParamsMap[this.ruleNo].forEach
+
+--- 位置 2 ---
+  n"),e.viewPermission=sessionStorage.getItem("viewPermission"),e.areaList=sessionStorage.getItem("areaList"),e.productId=sessionStorage.getItem("productId"),o={custNo:s.custNo},t.n=1,e.$post(a.default.selectPersonCust,o);case 1:return e.custList=t.v,t.n=2,e.showMap();case 2:return t.a(2)}}),t)})))()},handleMessage:function(e){sessionStorage.setItem("BPINGTAI",!0),sessionStorage.setItem("loginUserin
+
+--- 位置 3 ---
+  n"),e.viewPermission=sessionStorage.getItem("viewPermission"),e.areaList=sessionStorage.getItem("areaList"),e.productId=sessionStorage.getItem("productId"),o={custNo:s.custNo},t.n=1,e.$post(a.default.selectPersonCust,o);case 1:return e.custList=t.v,t.n=2,e.showMap();case 2:return t.a(2)}}),t)})))()},handleMessage:function(e){sessionStorage.setItem("BPINGTAI",!0),sessionStorage.setItem("loginUserin
+
+--- 位置 4 ---
+  n"),e.viewPermission=sessionStorage.getItem("viewPermission"),e.areaList=sessionStorage.getItem("areaList"),e.productId=sessionStorage.getItem("productId"),o={custNo:s.custNo},t.n=1,e.$post(a.default.selectPersonCust,o);case 1:return e.custList=t.v,t.n=2,e.showMap();case 2:return t.a(2)}}),t)})))()},handleMessage:function(e){sessionStorage.setItem("BPINGTAI",!0),sessionStorage.setItem("loginUserin
+
+--- 位置 5 ---
+  tOptions.hasOwnProperty(s)&&e.questionItem.hasOwnProperty(d[s])&&(e.inputOptions[s]=e.questionItem[d[s]]);return o=e.$store.getters["user/getUserInfo"],r=o.custNo,i={custNo:r},t.n=1,e.$post(a.default.selectPersonCust,i);case 1:e.queryParams=t.v;case 2:return t.a(2)}}),t)})))()},mounted:function(){if(this.$route.query.authresult){var e={fundSocailAuthButton:this.$route.query.authresult};this.setQue
+
+--- 位置 6 ---
+  h(t.n){case 0:if(!e.$store.getters["user/getUserInfo"]||!e.$store.getters["user/getUserInfo"].custNo){t.n=2;break}return s={custNo:e.$store.getters["user/getUserInfo"].custNo},t.n=1,e.$post(d.default.selectPersonCust,s);case 1:o=t.v,e.custName=o.custName;case 2:return t.a(2)}}),t)})))()},getUndoTaskCount:function(){var e=this;if(this.$store.getters["user/getUserInfo"]&&this.$store.getters["user/ge
+
+--- 位置 7 ---
+  troller"].pathName,query:{productId:""}}));case 2:return t.a(2)}}),t)})))()},getAuthenitcation:function(){var e={custNo:this.$store.getters["user/getUserInfo"].custNo};return this.$post(this.$api.org.selectPersonCust,e)},tabChange:function(e){this.$router.push(this.menuData[e].path)}})}},"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/
+
+--- 位置 8 ---
+  "user/setUserInfo",n),sessionStorage.setItem("loginUserinfo",JSON.stringify(n)),1==e.$route.query.shareCodeStatus?(e.$store.dispatch("user/initializationCustomerRelationship"),e.$store.dispatch("user/selectPersonCust",e.justGotoRouter),e.initOrgMenu(n)):e.$route.query.productId?(e.$store.dispatch("user/selectPersonCust",e.justGotoRouter),e.initOrgMenu(n)):e.initOrgMenu(n)):e.$toast.fail(n.Header.R
+
+======================================================================
+=== 8. 分析updatePersonCust / updatePartyBaseInfo ===
+======================================================================
+
+updatePersonCust:
+  Id)if(""!==e.url){var s={};"rz"===this.flag&&(s.existingCustomer="Y",s.authentication="Y"),"男"===e.gender?e.gender="1":e.gender="2";var o=(0,n.default)((0,n.default)({},s),e);this.$post(this.$api.org.updatePersonCust,o).then((function(e){"000000"===e.Header.RetCode&&(t.$toast("认证成功"),t.region=!1,t.tit="个人认证成功")}))}else this.$toast("请上传身份证反面");else this.$toast("请上传身份证正面")},addImg:function(e){var t=
+
+updatePartyBaseInfo:
+  ormat.utils.js"),t.default={data:function(){return{resData:"",productId:"",productInfo:{},recomuserInfo:{},menuList:[{surveyQuestionTypeId:"successTitle"}],showAuthResult:!1}},created:function(){this.updatePartyBaseInfo()},mounted:function(){},components:{successTitle:i.default,successProcess:u.default},methods:{homeMenuList:function(){var e=this;return(0,r.default)((0,n.default)().m((function t()
+
+updatePartyDefaultInfo:
+  on t(){var s,n;return(0,r.default)().w((function(t){while(1)switch(t.n){case 0:return s=JSON.parse(sessionStorage.getItem("partyIdDeY")),n={custNo:s||e.custNo,isDefault:"N"},t.n=1,o.$post(o.$api.home.updatePartyDefaultInfo,n);case 1:t.v;case 2:return t.a(2)}}),t)})))()}})}},"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!.
+
+=== 完成 ===

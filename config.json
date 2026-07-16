@@ -1,0 +1,20 @@
+{
+  "simulation_mode": false,
+  "forbid_real_network": false,
+  "allow_real_http_probe": true,
+  "target_file": "data/targets.txt",
+  "scan_result_dir": "data/scan_results",
+  "report_dir": "data/reports",
+  "hexstrike_cache_dir": "data/cache",
+  "report_file": "data/reports/simulation_report.md",
+  "simulation_tag": "_simulation: true",
+  "source_tag": "_source: local_virtual_no_network",
+  "virtual_source": "local_virtual_no_network",
+  "priority_rules": {
+    "P0": "高优先级占位",
+    "P1": "中优先级占位",
+    "P2": "标准优先级占位",
+    "P3": "低优先级占位"
+  },
+  "auto_cleanup": true
+}

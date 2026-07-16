@@ -1,0 +1,527 @@
+﻿======================================================================
+=== 1. 提取所有TranCode (改进模式) ===
+======================================================================
+
+总TranCode数: 2
+模块数: 2
+
+=== 所有模块 ===
+  FRMC: 1 个API
+  SSP-AUTH: 1 个API
+
+======================================================================
+=== 2. 所有模块的API列表 ===
+======================================================================
+
+--- FRMC (1 APIs) ---
+  FRMC/houseassets
+
+--- SSP-AUTH (1 APIs) ---
+  SSP-AUTH/queryCommonParamList
+
+======================================================================
+=== 3. SGP SOP端点分析 (直接URL访问) ===
+======================================================================
+
+发现 450 个SGP SOP端点:
+  sgp/ClientRelationshipCollectSop
+  sgp/CreateOrganizationAndDefaultStoreSop
+  sgp/CreditPlanRegisterSop
+  sgp/CustomerPersonAttestationConverg
+  sgp/IdentitySwitchoverSop
+  sgp/OperatorApprovalProcessSop
+  sgp/OrganizationCertificationSop
+  sgp/OrganizationSupplyChainListSop
+  sgp/ProcurementCollectSop
+  sgp/PurchaseCollectSop
+  sgp/QueryIdentityInfoSop
+  sgp/RegisterLoginSop
+  sgp/RelationshipListSop
+  sgp/SaveHouseholdSurveyInfoMovSop
+  sgp/SaveHouseholdSurveyInfoSop
+  sgp/SelectClientRelationSop
+  sgp/SelectCreditApplyInfoSop
+  sgp/SelectCreditInfoAuthorizationSop
+  sgp/SelectHouseholdSurveyInfoSop
+  sgp/SelectLoanApplicationInfoSop
+  sgp/SelectLoanInformation
+  sgp/SelectProductAndSurveySop
+  sgp/SelectReservationRecord
+  sgp/UseCreditaApplySubmitAndEnabledSop
+  sgp/acCreateCommunicationEventResult
+  sgp/addAvailableProductT
+  sgp/addAvaliableProduct
+  sgp/addClaimData
+  sgp/addConsumerPostalAddress
+  sgp/addCustCertificateImage
+  sgp/addFeatureForType
+  sgp/addFeatureProductAssoc
+  sgp/addIdentificationCardInfo
+  sgp/addMerchantBusinessLicenseInfo
+  sgp/addOrModifyItemToShoppingListExt
+  sgp/addOrModifyShoppingList
+  sgp/addOrUpdateProductPromo
+  sgp/addOrUpdateProductPromoActivity
+  sgp/addPartyRelationship
+  sgp/addPartyRelationshipBasicInfo
+  sgp/addProdCatalogCategoryType
+  sgp/addProdCatalogType
+  sgp/addProductAssoc
+  sgp/addProductCategoryT
+  sgp/addProductContentT
+  sgp/addProductDescription
+  sgp/addProductFeatureApplT
+  sgp/addProductFile
+  sgp/addProductFunctionApplT
+  sgp/addProductImage
+  sgp/addProductMsgT
+  sgp/addProductStoreByGroup
+  sgp/addRepaymentAppointment
+  sgp/addStoreSpecial
+  sgp/approvalResultHand
+  sgp/authUrlQuery
+  sgp/authentication
+  sgp/avaiProdAdvancedQuery
+  sgp/batchQueryProductName
+  sgp/bindDeliver
+  sgp/businessMenuAdd
+  sgp/businessMenuSeq
+  sgp/businessMenuUpdate
+  sgp/caSendMessage
+  sgp/cancelInstance
+  sgp/cancelOrderExt
+  sgp/cancelRepaymentAppointment
+  sgp/catagoryAvalProductManage
+  sgp/catalogAndCategoryCheckName
+  sgp/catalogAndCategoryCheckNameById
+  sgp/catalogAndCategoryInfoHandle
+  sgp/catalogAndProductList
+  sgp/catalogAndStoreCheckDelete
+  sgp/catalogCopy
+  sgp/catalogDelete
+  sgp/catalogManageInfoSave
+  sgp/catalogManageQueryById
+  sgp/catalogManageQueryList
+  sgp/catalogQueryOfPrdcTree
+  sgp/catalogQueryOfPrdcTreeByType
+  sgp/changeOrderStatusExt
+  sgp/channelShipmentConfigAdd
+  sgp/channelShipmentConfigDelete
+  sgp/checkAvailableDeleteVailidate
+  sgp/checkAvailableUpdateVailidate
+  sgp/checkSilderImg
+  sgp/checkSmsCodeCA
+  sgp/checkWorkEffortIng
+  sgp/completionOrderInfo
+  sgp/contextAdd
+  sgp/convertAgreenmentHtml2Pdf
+  sgp/copyContentForAvaProduct
+  sgp/couponDetailBeforeBuy
+  sgp/creatOrderAttribute
+  sgp/createAdElements
+  sgp/createAppTemplate
+  sgp/createAvailableProduct
+  sgp/createBaseProduct
+  sgp/createCommonAgreement
+  sgp/createContract
+  sgp/createFeaAndSingleProduct
+  sgp/createFeaAndSingleProductPlatFormA
+  sgp/createFeatureProduct
+  sgp/createInnerProducts
+  sgp/createNewAgreementFile
+  sgp/createOrder
+  sgp/createPersonCustSop
+  sgp/createPkgProduct
+  sgp/createProductAttribute
+  sgp/createProductByCategoryId
+  sgp/createProductStoreComponent
+  sgp/createSingleAndAggregatedProductExt
+  sgp/createSingleProduct
+  sgp/createTask
+  sgp/createTypeAndFeature
+  sgp/creditOrderAdd
+  sgp/ctlgManageContactAttrInfo
+  sgp/ctlgMenuQuery
+  sgp/customerMenuBatchDelete
+  sgp/customerMenuDelete
+  sgp/customerMenuUpdate
+  sgp/delFeatureProductAssoc
+  sgp/delProdCatalogCategoryType
+  sgp/delProdCatalogType
+  sgp/delProductAssoc
+  sgp/delProductAssocEach
+  sgp/delProductContentByProductId
+  sgp/delProductFile
+  sgp/delProductStoreByGroup
+  sgp/deleteAdElements
+  sgp/deleteAvailableProduct
+  sgp/deleteAvailableProductReal
+  sgp/deleteBaseProduct
+  sgp/deleteBaseProductFinal
+  sgp/deleteBaseProductReal
+  sgp/deleteConsumerPostalAddress
+  sgp/deleteCustomProduct
+  sgp/deleteFeatureProduct
+  sgp/deleteOrClearShoppingListExt
+  sgp/deleteOrder
+  sgp/deleteProductAttribute
+  sgp/deleteProductByCategoryId
+  sgp/deleteProductStoreComponent
+  sgp/deleteSingleAndAggregatedProductExt
+  sgp/deleteSingleProduct
+  sgp/deleteStoreAdvertByRelId
+  sgp/deleteStoreSpecial
+  sgp/deleteSurveyViewLog
+  sgp/deleteTypeAndFeature
+  sgp/deliverPull
+  sgp/download
+  sgp/editOrder
+  sgp/existAvailableProductName
+  sgp/exportProductContent
+  sgp/financialServiceBindDeliver
+  sgp/findAvailableProductList
+  sgp/findAvailableProductTotal
+  sgp/findListPartyIdentificationAuth
+  sgp/findListProductStoreGroup
+  sgp/findNextInfo
+  sgp/formatDocContent
+  sgp/gainEverydayquota
+  sgp/getAgreementInfo
+  sgp/getAvailableProduct
+  sgp/getAvailableProductForComparison
+  sgp/getAvailableProductSop
+  sgp/getBaseProduct
+  sgp/getBaseProductDetails
+  sgp/getBaseProductFunction
+  sgp/getCatalogSeqId
+  sgp/getCode
+  sgp/getCustomerCategorySeqId
+  sgp/getEnumInfoForXj
+  sgp/getFaceParam
+  sgp/getFaceValidate
+  sgp/getGeoData
+  sgp/getGeoTree
+  sgp/getGroupSurveyQuestionByWebInfo
+  sgp/getLastSurveySupplementLogList
+  sgp/getNoPwdByPhoneNo
+  sgp/getOcrIdCardResult
+  sgp/getPageInfo
+  sgp/getPersonFaceResult
+  sgp/getPlatformBaseInfoList
+  sgp/getProductCategoryByAvailableId
+  sgp/getProductCode
+  sgp/getProductPromoActivityDetail
+  sgp/getProductPromoActivityListByParams
+  sgp/getProductPromoDetail
+  sgp/getProductPromoListByParams
+  sgp/getProductStoreAddressByQuoteId
+  sgp/getProductStoreInfoByRelation
+  sgp/getProductStoreInfoByUserId
+  sgp/getProductStoreList4ES
+  sgp/getRelationshipInfo
+  sgp/getShareInstDetail
+  sgp/getSilderImg
+  sgp/getSurveyQuestionByWebInfo
+  sgp/getSurveyRelationshipQuestion
+  sgp/getSurveyResponseAnswer
+  sgp/getSurveyResponseWeb
+  sgp/getSuverysByProjectIdAndTaskCode
+  sgp/getWorkEffortBillRef
+  sgp/idcardOCR
+  sgp/initIdCardInformation
+  sgp/initUploadInformation
+  sgp/initializationCustomerRelationship
+  sgp/internalProductUpdate
+  sgp/isBaseProductContainAvaiProduct
+  sgp/isExitProductAssoc
+  sgp/merchantEntryApply
+  sgp/modifyAdElements
+  sgp/modifyProdCatalogCategoryType
+  sgp/modifyProdCatalogType
+  sgp/modifySRQuestionAppl
+  sgp/modifySurveyAnswer
+  sgp/myCustDimQryList
+  sgp/nextTask
+  sgp/nextTaskByCustNo
+  sgp/onlinePreview
+  sgp/partyRemarkInfoSet
+  sgp/paymentOrderBatchExt
+  sgp/pdAvailableGroupTemplateQuery
+  sgp/pdGroupTemplateQuery
+  sgp/prdcFeaQueryByProductId
+  sgp/processOrderBatchExt
+  sgp/processStart
+  sgp/prodShipmentConfigAdd
+  sgp/prodShipmentConfigDelete
+  sgp/prodShipmentConfigModify
+  sgp/producBaseLineQueryList
+  sgp/productAvailableLineGroupQuery
+  sgp/productAvailableLineQueryList
+  sgp/productCategoryGroupAndPartInfoQueryList
+  sgp/productCategoryGroupInfoAdd
+  sgp/productCategoryGroupInfoDelete
+  sgp/productCategoryGroupInfoQueryList
+  sgp/productCategoryGroupInfoUpdate
+  sgp/productCategoryGroupTemplateQueryList
+  sgp/productCategoryLineAdd
+  sgp/productCategoryLineBaseQueryById
+  sgp/productCategoryLineDelete
+  sgp/productCategoryLineDetail
+  sgp/productCategoryLineGroupQuery
+  sgp/productCategoryLineQuery
+  sgp/productCategoryLineQueryList
+  sgp/productCategoryLineUpdate
+  sgp/productCategoryMutualQuery
+  sgp/productDetail
+  sgp/productGroupDetailsQueryList
+  sgp/productGroupPull
+  sgp/productLinePull
+  sgp/productNameQuery
+  sgp/productOrderInterestsTrial
+  sgp/productSign
+  sgp/productSignlist
+  sgp/productStoreGroupApply
+  sgp/productStoreUpdate
+  sgp/productTempAdd
+  sgp/productTempReduction
+  sgp/productUnbind
+  sgp/publishedEventProductStoreList
+  sgp/queryActionPermissionByMenuIdRoleId
+  sgp/queryActivityList
+  sgp/queryActivityShowDetail
+  sgp/queryAdElementsById
+  sgp/queryAdElementsList
+  sgp/queryAdElementsListByCondition
+  sgp/queryAggregatedProductList
+  sgp/queryAgreementListByProductId
+  sgp/queryAgreementTemplateList
+  sgp/queryAgreementThruDate
+  sgp/queryAgreementTypeList
+  sgp/queryAllApproveTask
+  sgp/queryAllApproveTaskByTeller
+  sgp/queryAllProductContent
+  sgp/queryAllTaskByStartUser
+  sgp/queryAppSurveyResp
+  sgp/queryApproveRecord
+  sgp/queryAvailableProductInfoListExt
+  sgp/queryAvailableProductList
+  sgp/queryBankCardsBinInfo
+  sgp/queryBaseProductInfoForCategory
+  sgp/queryBusiness
+  sgp/queryCatalogTreeForChannelOrgNew
+  sgp/queryCommomAgreementBizList
+  sgp/queryCommonParamList
+  sgp/queryConsumerPostalAddress
+  sgp/queryCustBusiness
+  sgp/queryCustComponentDetail
+  sgp/queryCustRequestDetail
+  sgp/queryCustomerAssetArray
+  sgp/queryDebitCardByPartyId
+  sgp/queryDoTask
+  sgp/queryFaceToken
+  sgp/queryFeatureProduct
+  sgp/queryFeatureProductAssocList
+  sgp/queryFeatureProductPlatFormA
+  sgp/queryGenericReportDataList
+  sgp/queryGroupPurchaseActivity
+  sgp/queryHistTask
+  sgp/queryHousePrice
+  sgp/queryIdAndNameIsNotExist
+  sgp/queryIdentificationCardInfo
+  sgp/queryInsideProductInfo
+  sgp/queryInterestsCouponList
+  sgp/queryKnowledgeList
+  sgp/queryListByWorkEffortId
+  sgp/queryLoginWaysConfigByChannel
+  sgp/queryMenuTreeBySysIdRoleId
+  sgp/queryMenuTreeBySysIdRoleIdWithGuest
+  sgp/queryMsgByTargetId
+  sgp/queryMyTaskCount
+  sgp/queryNameIsNotExist
+  sgp/queryOrderArray
+  sgp/queryOrderBasicInfo
+  sgp/queryOrderDetail
+  sgp/queryOrderListForST
+  sgp/queryOrderStatusHistoryExt
+  sgp/queryPartyBonusPoints
+  sgp/queryPartyByAreaCode
+  sgp/queryPartyInfoTree
+  sgp/queryPkgProduct
+  sgp/queryPosterQrCodeInfoByQrCodeId
+  sgp/queryPrepaidMerchantBaseInfo
+  sgp/queryProdCataListForStore
+  sgp/queryProdCatalogCategoryTypeList
+  sgp/queryProdCatalogForStore
+  sgp/queryProdCatalogTypeList
+  sgp/queryProdListByCategoryId
+  sgp/queryProdListForCategory
+  sgp/queryProdShipmentConfig
+  sgp/queryProdShipmentConfigList
+  sgp/queryProduct
+  sgp/queryProductAssoc
+  sgp/queryProductAttribute
+  sgp/queryProductChannelByProductId
+  sgp/queryProductContent
+  sgp/queryProductContentByProductId
+  sgp/queryProductDescription
+  sgp/queryProductFile
+  sgp/queryProductImage
+  sgp/queryProductListByPrimaryGroup
+  sgp/queryProductListByStoreId
+  sgp/queryProductPointTakeAddress
+  sgp/queryProductStoreComponent
+  sgp/queryProjectPageList
+  sgp/queryQrCodeTellerInfo
+  sgp/queryShareInstInfoByApplId
+  sgp/queryShoppingListForStore
+  sgp/queryShoppingListOrderByStoreExt
+  sgp/querySourceTypeOfMsgCount
+  sgp/queryStatusOptions
+  sgp/queryStoreAdvertListByStoreCode
+  sgp/queryStoreAndPriGroupList
+  sgp/queryStoreByPrimaryGroup
+  sgp/queryStoreByProductId
+  sgp/queryStoreCatalogTree
+  sgp/queryStoreContactAddress
+  sgp/queryStoreDeftCatagory
+  sgp/queryStoreGroupListByCompany
+  sgp/queryStoreInfo
+  sgp/queryStoreInfoByGroup
+  sgp/queryStoreInfoDetailByStoreCode
+  sgp/queryStoreListByCatalogId
+  sgp/querySubStoreGroup
+  sgp/querySubStoreList
+  sgp/querySurveyRelationshipByWebInfo
+  sgp/querySurveyViewLog
+  sgp/queryTellerById
+  sgp/queryTempletDetail
+  sgp/queryTypeAndFeature
+  sgp/queryUndoTask
+  sgp/queryUndoTaskCount
+  sgp/queryUndoTaskForRelationship
+  sgp/queryWebTempAppListExt
+  sgp/removeCustomerAsset
+  sgp/removeProductPromo
+  sgp/removeProductPromoActivity
+  sgp/revaluationCustomerAsset
+  sgp/saveAdvertList
+  sgp/saveAgreementItem
+  sgp/saveOrUpdateDebitCard
+  sgp/saveSurveyQuestionValue
+  sgp/saveSurveyViewLog
+  sgp/selectCustAddressListSop
+  sgp/selectCustCertificateList
+  sgp/selectCustPrivateManageInfoListSop
+  sgp/selectPartyGroupCust
+  sgp/selectPartyRelationshipBasicInfo
+  sgp/selectPartyRemarkInfo
+  sgp/selectPersonCust
+  sgp/selectPersonCustSop
+  sgp/sendCAService
+  sgp/sendLoginSmsCode
+  sgp/sendMessage
+  sgp/shareDataStatAdd
+  sgp/shareInstProcess
+  sgp/signAgreement
+  sgp/signature
+  sgp/signatureCheck
+  sgp/slideCheck
+  sgp/slideInfo
+  sgp/socInsDataQuery
+  sgp/splitOrderList
+  sgp/startWorkFlowForAgentProduct
+  sgp/storeSpecialFindList
+  sgp/synchronousLoanStatusAndSendMsg
+  sgp/taskCallBack
+  sgp/transferRequest
+  sgp/updateAvaProd
+  sgp/updateAvaProdContent
+  sgp/updateAvaProdContentEca
+  sgp/updateAvaProdEca
+  sgp/updateAvaProdFeature
+  sgp/updateAvaProdFeatureEca
+  sgp/updateAvaProdFunction
+  sgp/updateAvaProdFunctionEca
+  sgp/updateAvaProdMsg
+  sgp/updateAvaProdMsgEca
+  sgp/updateAvailableProductInfo
+  sgp/updateBaseProdEca
+  sgp/updateBaseProduct
+  sgp/updateConsumerPostalAddress
+  sgp/updateFeaAndSingleProduct
+  sgp/updateFeaAndSingleProductPlatFormA
+  sgp/updateFeatureProductAssoc
+  sgp/updateInnerProducts
+  sgp/updateMsgBusiStatus
+  sgp/updatePartyBaseInfo
+  sgp/updatePartyDefaultInfo
+  sgp/updatePersonCust
+  sgp/updatePkgProduct
+  sgp/updateProductAttribute
+  sgp/updateProductDescription
+  sgp/updateProductFromStatus
+  sgp/updateProductPromoActivityStatus
+  sgp/updateProductStoreByGroup
+  sgp/updateProductStoreComponent
+  sgp/updateSingleAndAggregatedProductExt
+  sgp/updateSingleProduct
+  sgp/updateStoreAdvertByRelId
+  sgp/updateWebTempAppStatus
+  sgp/uploadProdAddImage
+  sgp/userActionAdd
+  sgp/validateChannel
+  sgp/validateRules
+  sgp/verifyBizLicense
+  sgp/verifyName
+  sgp/yxCtlgMenuQuery
+
+======================================================================
+=== 4. 文件相关接口详细分析 ===
+======================================================================
+
+发现 12 个http/开头的接口:
+  http/largeFile/getUploadId
+  http/largeFile/mergeFile
+  http/largeFile/sliceUpload
+  http/onlinePreview
+  http/queryFileInfo
+  http/removeFile
+  http/sliceUploadByBase64
+  http/transFileToPdfService
+  http/updownLoadFile/download
+  http/updownLoadFile/download/
+  http/updownLoadFile/upload
+  http/uploadByBase64
+
+======================================================================
+=== 5. gateway/admin接口分析 ===
+======================================================================
+
+发现 3 个gateway接口:
+  gateway/admin/buildNonceToken
+  gateway/admin/initUserKeyGroup
+  gateway/admin/isApiUseEncryptionList
+
+======================================================================
+=== 6. 搜索MD5使用 (弱哈希) ===
+======================================================================
+
+MD5使用场景: 4 处
+
+  [1] ...=fileSlice,exports.filterKeys=filterKeys,exports.getArea=getArea,exports.getFileMd5=getFileMd5,exports.labelToValue=labelToValue,exports.replaceKeys=r...
+
+  [2] ...);var _sparkMd=_interopRequireDefault(__webpack_require__("./node_modules/spark-md5/spark-md5.js")),_mineType=_interopRequireDefault(__webpack_require...
+
+  [3] ...objectSpread2.default)({},e)})):[]})})):[]})})):[],e}catch(o){}}function getFileMd5(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:10...
+
+  [4] ...default[d]));case 1:if(!(n<o)){e.n=3;break}return l=t.slice(n,r,u),e.n=2,getFileMd5(l,l.size);case 2:c=e.v,i.push({chunk:l,md5:c}),n=r,r=n+s,e.n=1;bre...
+
+======================================================================
+=== 7. 搜索Base64+密码组合 ===
+======================================================================
+
+Base64+密码组合: 0 处
+
+======================================================================
+=== 完成 ===
+======================================================================

@@ -1,0 +1,15 @@
+{
+  "kula_ai": {
+    "email": "kulaaitestmq98n8gh@web-library.net",
+    "password": "KulaTest2024!",
+    "username": "kulaittest715139",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyZWU1ZTg1Ny03NmM1LTQ4NmQtOTJiZS1lMTA4M2IwYzdiZGYiLCJlbWFpbCI6Imt1bGFhaXRlc3RtcTk4bjhnaEB3ZWItbGlicmFyeS5uZXQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc4Mjg4MjY1MSwiZXhwIjoxNzgzNDg3NDUxfQ.yGXGrW4HB97Uaed6bY4KtW-zrvI3BYzRQLG7R5YOO20",
+    "user_id": "2ee5e857-76c5-486d-92be-e1083b0c7bdf"
+  },
+  "temp_email": {
+    "provider": "mail.tm",
+    "email": "kulaaitestmq98n8gh@web-library.net",
+    "password": "TempMail2024!",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3ODI4ODI2NDEsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJhZGRyZXNzIjoia3VsYWFpdGVzdG1xOThuOGdoQHdlYi1saWJyYXJ5Lm5ldCIsImlkIjoiNmE0NGExNGRjZjQ2MGU3NzE3MDE1N2ZlIiwibWVyY3VyZSI6eyJzdWJzY3JpYmUiOlsiL2FjY291bnRzLzZhNDRhMTRkY2Y0NjBlNzcxNzAxNTdmZSJdfX0.Msv1aNTgUOVSKONf0SftMTtJwuReiqHQh2SUy8w5snFzocrIEMCgYfMEKe8WHWYdJf03ySnywumsvF0gnqRWTw"
+  }
+}

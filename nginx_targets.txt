@@ -1,0 +1,24 @@
+# CVE-2026-9256 Nginx漏洞检测目标列表
+223.105.82.43
+223.105.82.41
+223.105.82.40
+223.105.82.42
+112.4.210.141
+112.4.210.148
+112.4.210.149
+112.4.210.157
+112.4.210.144
+106.14.148.135
+121.237.177.120
+www.hjzj.store
+www.yzybjc.cn
+api.yzybjc.cn
+hjyl.jsmcxx.com
+hjwb.jsmcxx.com
+xfcz.hjzj.store
+ygzq.hjzj.store
+lxr.hj.gov.cn
+yj.hj.gov.cn
+zhgx.hj.gov.cn
+zhst.hj.gov.cn
+zwmp.hj.gov.cn
