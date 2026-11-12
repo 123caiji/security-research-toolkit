@@ -2,7 +2,11 @@ from docx import Document
 from docx.shared import Pt, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-doc = Document(r'D:\software\wechat\chat\xwechat_files\wxid_placeholder\msg\file\2026-07\2.同入党申请人谈话记录（样例）.docx')
+# 文档路径从命令行传入，不要写死本地绝对路径
+import sys
+
+DOC_PATH = sys.argv[1] if len(sys.argv) > 1 else 'sample.docx'
+doc = Document(DOC_PATH)
 
 print("=== 文档结构分析 ===")
 print(f"段落数: {len(doc.paragraphs)}")
